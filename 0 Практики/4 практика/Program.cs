@@ -4,18 +4,16 @@ namespace _4_практика
 {
     class Program
     {
-        static int max(int a, int b)
+        static double max(double a, double b)
         {
             return a > b ? a : b;
         }
-        static int min(int a, int b, int c)
+        static double min(double a, double b, double c)
         {
-            if (a < b)
-            {
-                if (a < c) return a;
-                else return c;
-            }
-            else return b;
+            double mn = a;
+            if (b < mn) mn = b;
+            if (c < mn) mn = c;
+            return mn;
         }
         static void Main(string[] args)
         {
@@ -23,9 +21,14 @@ namespace _4_практика
             int a = int.Parse(Console.ReadLine());
             Console.Write("Введите значение b:\t");
             int b = int.Parse(Console.ReadLine());
-            int result = max((int)Math.Pow(min(a + 1, Math.Abs(b - a), a * b), 2), 2 / a * b) * min(a, b, max(0, -b)) + 2 * max(a, 3 + a * b);
-            Console.WriteLine($"Ответ на задачу:\t{result}");
-            
+            if (a == 0 || b == 0)
+                Console.WriteLine("Ошибка: деление на ноль.");
+            else
+            {
+                double result = max(Math.Pow(min(a + 1, Math.Abs(b - a), a * b), 2), 2.0 / a * b) * min(a, b, max(0, -b)) + 2 * max(a, 3 + a * b);
+                Console.WriteLine($"Ответ на задачу:\t{result:f2}");
+            }
+
             Console.ReadKey();
         }
     }
