@@ -21,7 +21,8 @@ namespace Поиск_min_max_последовательности
         {
             Console.Write("Введите значение N:\t");
             uint n = uint.Parse(Console.ReadLine());
-            Console.WriteLine($"Самая минимальная площадь прямоугольника:\t{myFunc(n)}");
+            uint answer = myFunc(n);
+            Console.WriteLine($"Самая минимальная площадь прямоугольника:\t{answer}");
 
             Console.ReadKey();
         }
