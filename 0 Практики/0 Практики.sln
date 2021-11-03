@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31613.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "1 Приветствие", "1 Приветствие\1 Приветствие.csproj", "{EA2E606E-7C92-42A4-BF56-DD3853F9B9FE}"
 EndProject
@@ -21,7 +21,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3.2 Практика", "3.2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "3.3 Практика", "3.3 Практика\3.3 Практика.csproj", "{C56C056A-C5F0-4EBE-9E1C-6786E33493DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4 практика", "4 практика\4 практика.csproj", "{6B32312F-67FE-46DC-8C6C-00DB60625296}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "4 Практика", "4 практика\4 Практика.csproj", "{6B32312F-67FE-46DC-8C6C-00DB60625296}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "5.1 Практика", "5.1 Практика\5.1 Практика.csproj", "{05FB7729-6747-445F-A67F-CA016D0B2815}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "5.2 Практика", "5.2 Практика\5.2 Практика.csproj", "{0F2380CA-C685-4954-8D5F-CC6D42951B79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "5.3 Практика", "5.3 Практика\5.3 Практика.csproj", "{B3695577-213A-4BFF-8007-F1FD3FAA9331}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +75,18 @@ Global
 		{6B32312F-67FE-46DC-8C6C-00DB60625296}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B32312F-67FE-46DC-8C6C-00DB60625296}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B32312F-67FE-46DC-8C6C-00DB60625296}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05FB7729-6747-445F-A67F-CA016D0B2815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05FB7729-6747-445F-A67F-CA016D0B2815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05FB7729-6747-445F-A67F-CA016D0B2815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05FB7729-6747-445F-A67F-CA016D0B2815}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F2380CA-C685-4954-8D5F-CC6D42951B79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F2380CA-C685-4954-8D5F-CC6D42951B79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F2380CA-C685-4954-8D5F-CC6D42951B79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F2380CA-C685-4954-8D5F-CC6D42951B79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3695577-213A-4BFF-8007-F1FD3FAA9331}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3695577-213A-4BFF-8007-F1FD3FAA9331}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3695577-213A-4BFF-8007-F1FD3FAA9331}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3695577-213A-4BFF-8007-F1FD3FAA9331}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

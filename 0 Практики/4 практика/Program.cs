@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _4_практика
+namespace _4_Практика
 {
     class Program
     {
