@@ -38,6 +38,7 @@ namespace Побитовые_операции
         static void noZeros(short x2)
         {
             bool f = false;
+            Console.Write("Число x2 без значащих нулей: ");
             for (int i = 15; i >= 0; --i)
             {
                 if (maskingShort(x2, i) == 1)
@@ -47,7 +48,8 @@ namespace Побитовые_операции
                 }
                 else if(f==true)
                     Console.Write(0);
-            }   
+            }
+            Console.Write("\n");
         }
 
         static void bitMask(ushort x1, ushort n)
