@@ -6,7 +6,7 @@ namespace Побитовые_операции
     {
         static int masking(ushort x1, int i)
         {
-            int mask = 1, count = 0;
+            int mask = 1;
             mask <<= i;
             if ((x1 & mask) != 0)
                 return 1;
@@ -49,8 +49,12 @@ namespace Побитовые_операции
         static void bit_mask(ushort x1, ushort n)
         {
 
-            x1 = (x1 >> n) | (x1 << (16 - n));
-            Console.WriteLine($"Циклический сдвиг на {n} число x1: {x1}");
+            x1 = (ushort)((x1 >> n) | (x1 << (0xF - n)));
+            Console.Write($"Циклический сдвиг на {n} число x1: ");
+            for (int i = 15; i >= 0; --i)
+            {
+                Console.Write(masking(x1, i));
+            }
         }
 
         static void Main(string[] args)
