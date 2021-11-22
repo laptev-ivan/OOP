@@ -14,7 +14,7 @@ namespace Побитовые_операции
                 return 0;
         }
 
-        static int masking1(short x2, int i)
+        static int maskingShort(short x2, int i)
         {
             int mask = 1;
             mask <<= i;
@@ -24,7 +24,7 @@ namespace Побитовые_операции
                 return 0;
         }
 
-        static void binary_code(ushort x1)
+        static void binaryCode(ushort x1)
         {
             int count = 0;
             for (int i = 15; i >= 0; --i)
@@ -35,18 +35,22 @@ namespace Побитовые_операции
             Console.WriteLine($"Кол-во нулевых бит числа x1: {count}");
         }
 
-        static void no_zeros(short x2)
+        static void noZeros(short x2)
         {
+            bool f = false;
             for (int i = 15; i >= 0; --i)
             {
-                while (masking1(x2, i) != 0)
+                if (maskingShort(x2, i) == 1)
                 {
-                    Console.Write($"{masking1(x2, i)}");
+                    Console.Write(1);
+                    f=true;
                 }
+                else if(f==true)
+                    Console.Write(0);
             }   
         }
 
-        static void bit_mask(ushort x1, ushort n)
+        static void bitMask(ushort x1, ushort n)
         {
 
             x1 = (ushort)((x1 >> n) | (x1 << (0xF - n)));
@@ -62,9 +66,9 @@ namespace Побитовые_операции
             Console.WriteLine("Введите x1:\t"); ushort x1 = ushort.Parse(Console.ReadLine());
             Console.WriteLine("Введите n:\t"); ushort n = ushort.Parse(Console.ReadLine());
             Console.WriteLine("Введите x2:\t"); short x2 = short.Parse(Console.ReadLine());
-            binary_code(x1);
-            no_zeros(x2);
-            bit_mask(x1, n);
+            binaryCode(x1);
+            noZeros(x2);
+            bitMask(x1, n);
             Console.ReadKey();
         }
     }
