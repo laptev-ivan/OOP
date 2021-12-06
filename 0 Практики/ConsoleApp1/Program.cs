@@ -67,7 +67,6 @@ namespace ГНОМЫ
                     {
                         Mynym = 1;
                     }
-
                     COUNT++;
                     if (hint != Mynym)
                     {

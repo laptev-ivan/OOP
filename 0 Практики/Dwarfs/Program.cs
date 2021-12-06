@@ -58,7 +58,7 @@ namespace Dwarfs
                     else
                         myHat = 1;
                     cnt++;
-                    if(hint!=myHat)
+                    if (hint != myHat)
                     {
                         if (myHat == 0)
                         {
@@ -70,6 +70,16 @@ namespace Dwarfs
                             Console.WriteLine($"{i + 1}-й гном сказал: \"Я в красной шапке.\"");
                             Console.WriteLine($"{i + 1}-й гном угадал и получил монету. Общий подсчет монет: {cnt}");
                         }
+                    }
+                    else if (myHat == 0)
+                    {
+                        Console.WriteLine($"{i + 1}-й гном сказал: \"Я в зеленой шапке.\"");
+                        Console.WriteLine($"{i + 1}-й гном угадал и получил монету. Общий подсчет монет: {cnt}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{i + 1}-й гном сказал: \"Я в красной шапке.\"");
+                        Console.WriteLine($"{i + 1}-й гном угадал и получил монету. Общий подсчет монет: {cnt}");
                     }
                 }
             }
