@@ -7,7 +7,7 @@ namespace _9_Практика
         static string ThirdDigit(int n)
         {
             string s = String.Concat(n);
-            string res = "", dot = ".";
+            string dot = ".";
             for (int i = s.Length - 1; i >= 0; i -= 3)
             { 
                 s = s.Insert(i+1 , dot);
