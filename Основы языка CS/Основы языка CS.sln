@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Точка в заштри�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Поиск min max последовательности", "Поиск min max последовательности\Поиск min max последовательности.csproj", "{BDE6713D-C00E-49BD-8976-F45171ABDCFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Побитовые операции", "Побитовые операции\Побитовые операции.csproj", "{A614D101-C376-4ADC-A232-BD0D8D6DC3AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Побитовые операции", "Побитовые операции\Побитовые операции.csproj", "{A614D101-C376-4ADC-A232-BD0D8D6DC3AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Редактор текста", "Редактор текста\Редактор текста.csproj", "{A16903DC-4DAF-4895-88ED-C68180FBD588}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{A614D101-C376-4ADC-A232-BD0D8D6DC3AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A614D101-C376-4ADC-A232-BD0D8D6DC3AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A614D101-C376-4ADC-A232-BD0D8D6DC3AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A16903DC-4DAF-4895-88ED-C68180FBD588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A16903DC-4DAF-4895-88ED-C68180FBD588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A16903DC-4DAF-4895-88ED-C68180FBD588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A16903DC-4DAF-4895-88ED-C68180FBD588}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
