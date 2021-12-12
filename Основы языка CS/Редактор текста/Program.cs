@@ -7,10 +7,9 @@ namespace Редактор_текста
         static int CountWords(string s)
         {
             int cnt = 1;
-            char[] arr = s.ToCharArray();
-            for(int i=0; i<arr.Length; ++i)
+            for(int i=0; i<s.Length; ++i)
             {
-                if (arr[i] == ' ') 
+                if (s[i] == ' ') 
                 {
                     ++cnt;
                 }
@@ -52,10 +51,9 @@ namespace Редактор_текста
         {
             int cnt = 0;
             char[] seps = { '.', '!', '?' };
-            char[] arr = s.ToCharArray();
-            for (int i = 0; i < arr.Length; ++i)
+            for (int i = 0; i < s.Length; ++i)
             {
-                if (arr[i] == seps[0] || arr[i] == seps[1] || arr[i] == seps[2])
+                if (s[i] == seps[0] || s[i] == seps[1] || s[i] == seps[2])
                 {
                     ++cnt;
                 }
