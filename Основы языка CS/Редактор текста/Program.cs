@@ -6,15 +6,8 @@ namespace Редактор_текста
     {   
         static int CountWords(string s)
         {
-            int cnt = 1;
-            for(int i=0; i<s.Length; ++i)
-            {
-                if (s[i] == ' ') 
-                {
-                    ++cnt;
-                }
-            }
-            return cnt;
+            string[] Words = s.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            return Words.Length;
         }
 
         static string MinWord(string s)
