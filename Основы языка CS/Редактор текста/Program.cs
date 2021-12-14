@@ -77,17 +77,17 @@ namespace Редактор_текста
         }
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите строку: "); string s = Console.ReadLine();
+            Console.Write("Введите строку: "); string s = Console.ReadLine();
             int SumOfWords = CountWords(s);
             string MinLengthWord = MinWord(s);
             string MaxLengthWord = MaxWord(s);
             int SumOfSentences = CountSents(s);
             string Chars = CharsInString(s);
-            Console.WriteLine($"Количество слов: {SumOfWords}");
-            Console.WriteLine($"Самое короткое слово: {MinLengthWord}");
-            Console.WriteLine($"Самое длинное слово: {MaxLengthWord}");
-            Console.WriteLine($"Количество предложений: {SumOfSentences}");
-            Console.WriteLine($"Символы: {Chars}");
+            Console.Write($"Количество слов: {SumOfWords}");
+            Console.Write($"Самое короткое слово: {MinLengthWord}");
+            Console.Write($"Самое длинное слово: {MaxLengthWord}");
+            Console.Write($"Количество предложений: {SumOfSentences}");
+            Console.Write($"Символы: {Chars}");
             Console.ReadKey();
         }
     }
