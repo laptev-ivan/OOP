@@ -8,7 +8,7 @@ namespace Массивы
         {
             Console.WriteLine("Введите элементы: ");
             int[] arr = new int[n];
-            for(int i=0; i<n; ++i)
+            for (int i = 0; i < n; ++i)
             {
                 arr[i] = int.Parse(Console.ReadLine());
             }
@@ -18,7 +18,7 @@ namespace Массивы
         static void PrintArray(int[] arr)
         {
             Console.Write("Массив: ");
-            for(int i=0; i<arr.Length; ++i)
+            for (int i = 0; i < arr.Length; ++i)
             {
                 Console.Write($"{arr[i]} ");
             }
@@ -29,93 +29,114 @@ namespace Массивы
             int max = arr[0];
             int min = arr[0];
             int sum = 0;
-            for(int i=0; i<arr.Length; ++i)
+            for (int i = 0; i < arr.Length; ++i)
             {
-                if(arr[i]>arr[max])
+                if (arr[i] > arr[max])
                 {
                     max = i;
                 }
-                if(arr[i]<=arr[min])
+                if (arr[i] <= arr[min])
                 {
                     min = i;
                 }
             }
-            for(int i=max; i<=min; ++i)
+            for (int i = max; i <= min; ++i)
             {
                 sum += arr[i];
             }
             return sum;
         }
 
-        static int[] ShiftArray(int[] arr, int k)
+        static void ShiftArray(int[] arr, int k)
         {
-            for(int i=0; i<k; ++i)
+            for (int i = 0; i < k; ++i)
             {
-                for(int j=arr.Length-1; j>0; --j)
+                for (int j = arr.Length - 1; j > 0; --j)
                 {
                     int tmp = arr[j];
                     arr[j] = arr[j - 1];
                     arr[j - 1] = tmp;
                 }
             }
-            return arr;
         }
 
-        static void Elements()
+        static bool check(int[] arr2, int elem)
         {
-            Console.Write("Введите кол-во элементов в массиве: "); int n = int.Parse(Console.ReadLine());
+            bool ok = false;
+            foreach (int elem2 in arr2)
+            {
+                if (elem2 == elem)
+                {
+                    ok = true;
+                }
+            }
+            return ok;
+        }
+        static void ElementsInBothArrays()
+        {
+            Console.Write("Введите кол-во элементов для первого и второго массивов: "); int n = int.Parse(Console.ReadLine());
             int[] arr1 = ReadArray(n);
             int[] arr2 = ReadArray(n);
-            Console.Write("Повторяющиеся элементы: ");
-            foreach(int elem1 in arr1)
+            Console.Write("Пересечение множеств: ");
+            foreach(int elem in arr1)
             {
-                foreach(int elem2 in arr2)
+                if(check(arr2, elem))
                 {
-                    if(elem1==elem2)
-                    {
-                        Console.Write($"{elem1} ");
-                    }
+                    Console.Write($"{elem} ");
                 }
             }
-            Console.WriteLine();
         }
 
-        static int[] DeleteArray()
+        static bool CheckNextElem(int[] arr, int index)
         {
-            Console.Write("Введетие кол-во элементов в массиве: "); int n = int.Parse(Console.ReadLine());
-            int[] arr = ReadArray(n);
-            int p = 0, min = 0;
-            for(int i=0; i<arr.Length; ++i)
+            bool ok = true;
+            for(int i=0; i<arr.Length-2; ++i)
             {
-                int rav = 0;
-                for (int j = p; j < arr.Length; ++j)
+                if(arr[index]==arr[i+1])
                 {
-                    if (arr[min]==arr[j])
-                    {
-                        rav++;
-                    }
+                    ok = false;
                 }
-                if (rav == 1)
-                {
-                    Console.Write("${arr[min]} ");
-                }
-                min++;
-                p++;
             }
-            return arr;
+            return ok;
+        }
+        static void DeleteElements()
+        {
+            Console.Write("Введите кол-во элементов в массиве: "); int n = int.Parse(Console.ReadLine());
+            int[] arr = ReadArray(n);
+            for(int i=0; i<n; ++i)
+            {
+                Console.Write($"{arr[i]} ");
+                if(!CheckNextElem(arr, i+1))
+                {
+                    continue;
+                }
+            }
         }
         static void Main(string[] args)
         {
             Console.Write("Введите кол-во элементов в массиве: "); int n = int.Parse(Console.ReadLine());
-            Console.Write("Введите k: "); int k = int.Parse(Console.ReadLine());
             int[] arr = ReadArray(n);
-            int answer1 = SumOfElements(arr);
-            arr = ShiftArray(arr, k);
-            Console.WriteLine($"Сумма элементов между между элементами: {answer1}");
-            Elements();
-            int[] arr1 = DeleteArray();
+
+            //Первая ф-ция
+            int SumOfElems = SumOfElements(arr);
+            Console.WriteLine($"Сумма элементов между первым максимальным и последним минимальными элементами: {SumOfElems}");
+            Console.WriteLine();
+
+            //Вторая ф-ция
+            Console.Write("Введите k: "); int k = int.Parse(Console.ReadLine());
+            ShiftArray(arr, k);
+            Console.WriteLine("Массив со сдвигом: ");
             PrintArray(arr);
-            PrintArray(arr1);
+            Console.WriteLine("\n");
+
+            //Третья ф-ция
+            ElementsInBothArrays();
+            Console.WriteLine("\n");
+
+            //Четвертая ф-ция
+            DeleteElements();
+            Console.WriteLine("\n");
+
             Console.ReadKey();
         }
     }
