@@ -86,29 +86,26 @@ namespace Массивы
                 }
             }
         }
-
-        static bool CheckNextElem(int[] arr, int index)
-        {
-            bool ok = true;
-            for(int i=0; i<arr.Length-2; ++i)
-            {
-                if(arr[index]==arr[i+1])
-                {
-                    ok = false;
-                }
-            }
-            return ok;
-        }
         static void DeleteElements()
         {
             Console.Write("Введите кол-во элементов в массиве: "); int n = int.Parse(Console.ReadLine());
             int[] arr = ReadArray(n);
-            for(int i=0; i<n; ++i)
+            bool ok;
+            Console.Write("Массив: ");
+            for(int i=0; i<arr.Length; ++i)
             {
-                Console.Write($"{arr[i]} ");
-                if(!CheckNextElem(arr, i+1))
+                ok = true;
+                for(int j=0; j<i; ++j)
                 {
-                    continue;
+                    if(arr[i]==arr[j])
+                    {
+                        ok = false;
+                        break;
+                    }
+                }
+                if(ok)
+                {
+                    Console.Write($"{arr[i]} ");
                 }
             }
         }
