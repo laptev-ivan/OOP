@@ -18,9 +18,9 @@ namespace Массивы
         static void PrintArray(int[] arr)
         {
             Console.Write("Массив: ");
-            for (int i = 0; i < arr.Length; ++i)
+            foreach(int elem in arr)
             {
-                Console.Write($"{arr[i]} ");
+                Console.Write($"{elem} ");
             }
         }
 
@@ -39,6 +39,12 @@ namespace Массивы
                 {
                     min = i;
                 }
+            }
+            if (min > max)
+            {
+                int tmp = min;
+                min = max;
+                max = tmp;
             }
             for (int i = max; i <= min; ++i)
             {
@@ -72,6 +78,7 @@ namespace Массивы
             }
             return ok;
         }
+
         static void ElementsInBothArrays()
         {
             Console.Write("Введите кол-во элементов для первого и второго массивов: "); int n = int.Parse(Console.ReadLine());
@@ -86,29 +93,42 @@ namespace Массивы
                 }
             }
         }
+
         static void DeleteElements()
         {
             Console.Write("Введите кол-во элементов в массиве: "); int n = int.Parse(Console.ReadLine());
             int[] arr = ReadArray(n);
-            bool ok;
             Console.Write("Массив: ");
-            for(int i=0; i<arr.Length; ++i)
+            bool ok = false;
+            int length = arr.Length;
+            for(int i=0; i<length; ++i)
             {
-                ok = true;
+                ok = false;
                 for(int j=0; j<i; ++j)
                 {
                     if(arr[i]==arr[j])
                     {
-                        ok = false;
-                        break;
+                        if (ok)
+                        {
+                            for (int k = 0; k < length; ++k)
+                            {
+                                arr[i] = arr[i + 1];
+                            }
+                            --length;
+                        }
+                        else
+                        {
+                            ok = true;
+                        }
                     }
                 }
-                if(ok)
-                {
-                    Console.Write($"{arr[i]} ");
-                }
+            }
+            for(int i=0; i<arr.Length; ++i)
+            {
+                Console.Write($"{arr[i]} ");
             }
         }
+
         static void Main(string[] args)
         {
             Console.Write("Введите кол-во элементов в массиве: "); int n = int.Parse(Console.ReadLine());
