@@ -85,11 +85,19 @@ namespace Массивы
             int[] arr1 = ReadArray(n);
             int[] arr2 = ReadArray(n);
             Console.Write("Пересечение множеств: ");
-            foreach(int elem in arr1)
+            bool flag = true;
+            foreach(int elem in arr1) // TODO: Убрать лишние элементы
             {
                 if(check(arr2, elem))
                 {
-                    Console.Write($"{elem} ");
+                    foreach(int elem1 in arr1)
+                    {
+                        flag = true;
+                        if(elem1==elem)
+                        {
+                        }
+                    }
+                    if(flag) Console.Write($"{elem} ");
                 }
             }
         }
@@ -98,34 +106,21 @@ namespace Массивы
         {
             Console.Write("Введите кол-во элементов в массиве: "); int n = int.Parse(Console.ReadLine());
             int[] arr = ReadArray(n);
-            Console.Write("Массив: ");
-            bool ok = false;
-            int length = arr.Length;
-            for(int i=0; i<length; ++i)
+            Console.Write("Массив ");
+            for (int m = 0; m < n; ++m)
             {
-                ok = false;
-                for(int j=0; j<i; ++j)
+                Console.Write($"{arr[m]} ");
+                for (int i = m + 1; i < n; ++i)
                 {
-                    if(arr[i]==arr[j])
+                    if (arr[m] == arr[i])
                     {
-                        if (ok)
+                        for (int k = i; k < n - 1; ++k)
                         {
-                            for (int k = 0; k < length; ++k)
-                            {
-                                arr[i] = arr[i + 1];
-                            }
-                            --length;
+                            arr[k] = arr[k + 1];
                         }
-                        else
-                        {
-                            ok = true;
-                        }
+                        n--;
                     }
                 }
-            }
-            for(int i=0; i<arr.Length; ++i)
-            {
-                Console.Write($"{arr[i]} ");
             }
         }
 
