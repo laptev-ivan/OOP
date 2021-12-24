@@ -79,25 +79,31 @@ namespace Массивы
             return ok;
         }
 
+        static void DeleteInArray(int[] arr, int elem)
+        {
+            for(int i=0; i<arr.Length; ++i)
+            {
+                if(arr[i]==elem)
+                {
+                    arr[i] = 0; // HINT: по условию ввод натуральных чисел, поэтому присвоим 0
+                    break;
+                }
+            }
+        }
+
         static void ElementsInBothArrays()
         {
             Console.Write("Введите кол-во элементов для первого и второго массивов: "); int n = int.Parse(Console.ReadLine());
             int[] arr1 = ReadArray(n);
             int[] arr2 = ReadArray(n);
             Console.Write("Пересечение множеств: ");
-            bool flag = true;
             foreach(int elem in arr1) // TODO: Убрать лишние элементы
             {
-                if(check(arr2, elem))
+                if(check(arr2, elem)&&check(arr1, elem))
                 {
-                    foreach(int elem1 in arr1)
-                    {
-                        flag = true;
-                        if(elem1==elem)
-                        {
-                        }
-                    }
-                    if(flag) Console.Write($"{elem} ");
+                    DeleteInArray(arr2, elem);
+                    DeleteInArray(arr1, elem);
+                    Console.Write($"{elem} ");
                 }
             }
         }
@@ -107,7 +113,7 @@ namespace Массивы
             Console.Write("Введите кол-во элементов в массиве: "); int n = int.Parse(Console.ReadLine());
             int[] arr = ReadArray(n);
             Console.Write("Массив ");
-            for (int m = 0; m < n; ++m)
+            for (int m = 0; m < n; ++m) // HINT: я сделал так, что остаются только разные элементы
             {
                 Console.Write($"{arr[m]} ");
                 for (int i = m + 1; i < n; ++i)
@@ -137,7 +143,6 @@ namespace Массивы
             //Вторая ф-ция
             Console.Write("Введите k: "); int k = int.Parse(Console.ReadLine());
             ShiftArray(arr, k);
-            Console.WriteLine("Массив со сдвигом: ");
             PrintArray(arr);
             Console.WriteLine("\n");
 
