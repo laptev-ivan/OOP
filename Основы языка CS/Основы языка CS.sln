@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Массивы", "Масс�
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Цикл", "Цикл\Цикл.csproj", "{FF6506CE-FF8C-4871-986A-C0019C4B6AA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Пила", "Пила\Пила.csproj", "{FED80E52-3287-4AAA-91ED-A3C514B92E0F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Пила", "Пила\Пила.csproj", "{FED80E52-3287-4AAA-91ED-A3C514B92E0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Сложные типы данных", "Сложные типы данных\Сложные типы данных.csproj", "{C75B4723-C02C-47AB-AE13-41A6B285113A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{FED80E52-3287-4AAA-91ED-A3C514B92E0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FED80E52-3287-4AAA-91ED-A3C514B92E0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FED80E52-3287-4AAA-91ED-A3C514B92E0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C75B4723-C02C-47AB-AE13-41A6B285113A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C75B4723-C02C-47AB-AE13-41A6B285113A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C75B4723-C02C-47AB-AE13-41A6B285113A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C75B4723-C02C-47AB-AE13-41A6B285113A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
