@@ -4,6 +4,7 @@ namespace Сложные_типы_данных
 {
     class Program
     {
+        // Лаптев Иван
         static void OutputArr(int[,] arr)
         {
             for (int i = 0; i < arr.GetLength(0); ++i) 
@@ -51,17 +52,23 @@ namespace Сложные_типы_данных
 
         static int Index(int[,] arr)
         {
-            int min = -1, max = -1, index = 0;
-            int[] res = new int[arr.GetLength(1)];
-            for (int i = 0; i < arr.GetLength(1); ++i)
+            int min = arr[0, 0];
+            int max = arr[arr.GetLength(0)-1, arr.GetLength(1)-1];
+            int index = 0;
+            for(int j=0; j<arr.GetLength(1); ++j)
             {
                 min = arr[0, 0];
-                for (int j = 0; j < arr.GetLength(0); ++j)
-                    if (arr[j, i] < min) min = arr[j, i];
+                for(int i=0; i<arr.GetLength(0); ++i)
+                {
+                    if (arr[i, j] < min)
+                    {
+                        min = arr[i, j];
+                    }
+                }
                 if (min > max)
                 {
                     max = min;
-                    index = i;
+                    index = j;
                 }
             }
             return index;
