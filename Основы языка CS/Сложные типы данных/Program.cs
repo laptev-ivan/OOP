@@ -51,25 +51,16 @@ namespace Сложные_типы_данных
 
         static int Index(int[,] arr)
         {
-            int min = arr[0, 0];
+            int min = -1, max = -1, index = 0;
             int[] res = new int[arr.GetLength(1)];
-            for(int i=0; i<arr.GetLength(1); ++i)
+            for (int i = 0; i < arr.GetLength(1); ++i)
             {
                 min = arr[0, 0];
                 for (int j = 0; j < arr.GetLength(0); ++j)
-                {
                     if (arr[j, i] < min) min = arr[j, i];
-                    
-                }
-                res[i] = min;
-            }
-            int max = res[0], index = 0;
-            for(int i=0; i<res.Length; ++i)
-            {
-                max = res[0];
-                if (res[i] > max)
+                if (min > max)
                 {
-                    max = res[i];
+                    max = min;
                     index = i;
                 }
             }
