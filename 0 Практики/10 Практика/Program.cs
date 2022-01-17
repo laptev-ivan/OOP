@@ -68,6 +68,72 @@ namespace _10_Практика
             sum = summa;
             max = maximum;
         }
+        
+
+        static bool Digit(int n)
+        {
+            int z = 0, f = 0, t = 0;
+            while(n>0)
+            {
+                if (n % 10 == 0)
+                    ++z;
+                if (n % 10 == 5)
+                    ++f;
+                if (n % 10 == 2)
+                    ++t;
+                n /= 10;
+            }
+            return (z!=0&&f!=0&&t!=0) ? true : false;
+        }
+
+        static void FourthFunction(int[] arr, out int sum, out int min)
+        {
+            int summa = 0;
+            int minimum = arr[arr.Length - 1] + 1;
+            foreach(int elem in arr)
+            {
+                if(elem%7==0&&Digit(elem))
+                {
+                    minimum = elem;
+                    break;
+                }
+            }
+            foreach(int elem in arr)
+            {
+                if (elem % 7 == 0 && Digit(elem)) ++summa;
+            }
+            sum = summa;
+            min = minimum;
+        }
+
+        static int Delemiter(int n)
+        {
+            int sum = 0;
+            for(int i=1; i<=n; ++i)
+            {
+                if (n % i == 0) ++sum;
+            }
+            return sum;
+        }
+        static void FifthFunction(int[] arr, out int sum, out int min)
+        {
+            int summa = 0;
+            int minimum = arr[arr.Length - 1] + 1;
+            foreach(int elem in arr)
+            {
+                if (Delemiter(elem) > 35)
+                {
+                    minimum = elem;
+                    break;
+                }
+            }
+            foreach(int elem in arr)
+            {
+                if (Delemiter(elem) > 35) ++summa;
+            }
+            sum = summa;
+            min = minimum;
+        }
 
         static void Main(string[] args)
         {
@@ -80,7 +146,13 @@ namespace _10_Практика
             Console.WriteLine($"Минимальное: {min2}");
             ThirdFunction(MakeArray(2461, 9719), out sum3, out max3);
             Console.WriteLine($"Сумма: {sum3}");
-            Console.WriteLine($"Минимальное: {max3}");
+            Console.WriteLine($"Максимальное: {max3}");
+            FourthFunction(MakeArray(2079, 43167), out sum4, out min4);
+            Console.WriteLine($"Сумма: {sum4}");
+            Console.WriteLine($"Минимальное: {min4}");
+            FifthFunction(MakeArray(56123, 97354), out sum5, out min5);
+            Console.WriteLine($"Сумма: {sum5}");
+            Console.WriteLine($"Минимальное: {min5}");
             Console.ReadKey();
         }
     }
