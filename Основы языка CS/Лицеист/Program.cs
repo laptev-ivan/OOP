@@ -3,11 +3,17 @@ using System.IO;
 
 namespace Лицеист
 {
+    enum Groups
+    {
+        five_one=1,
+        five_two,
+        five_three,
+    };
     struct Lesson
     {
         public int Classroom;
         public string Teacher;
-        public string Group;
+        public Groups Group;
         public string Subject;
         public int Number;
     }
@@ -35,48 +41,48 @@ namespace Лицеист
         }
         static void Main(string[] args)
         {
-            //StreamReader input = new StreamReader("C:\\Users\\chels\\Desktop\\oop\\Основы языка CS\\Лицеист\\input.txt");
-            //StreamWriter output = new StreamWriter("C:\\Users\\chels\\Desktop\\oop\\Основы языка CS\\Лицеист\\output.txt");
-            
-            int n = int.Parse(Console.ReadLine()); 
+            StreamReader input = new StreamReader("C:\\Users\\chels\\Desktop\\oop\\Основы языка CS\\Лицеист\\input.txt");
+            StreamWriter output = new StreamWriter("C:\\Users\\chels\\Desktop\\oop\\Основы языка CS\\Лицеист\\output.txt");
 
-            string[] groups = new string[] { "5.1", "5.2", "5.3" };
+            for (Groups i = Groups.five_one; i <=Groups.five_three; ++i)
+                Console.WriteLine($"{i}, соответствует {(int)i}");
 
-            Lesson[,] array = new Lesson[n, groups.Length];
+            int n = int.Parse(input.ReadLine()); 
+
+            Lesson[,] array = new Lesson[3, 3];
             for (int i = 0; i < n; ++i)
             {
-                for (int j = 0; j < groups.Length; ++j)
-                {
-                    array[i, j].Number = int.Parse(Console.ReadLine());
-                    array[i, j].Group = Console.ReadLine();
-                    array[i, j].Classroom = int.Parse(Console.ReadLine());
-                    array[i, j].Subject = Console.ReadLine();
-                    array[i, j].Teacher = Console.ReadLine();
-                }
+                int number = int.Parse(input.ReadLine());
+                Groups group = (Groups) int.Parse(input.ReadLine());
+                array[number - 1, (int)group - 1].Number = number;
+                array[number - 1, (int)group - 1].Group = group;
+                array[number - 1, (int)group - 1].Classroom = int.Parse(input.ReadLine());
+                array[number - 1, (int)group - 1].Subject = input.ReadLine();
+                array[number - 1, (int)group - 1].Teacher = input.ReadLine();
             }
             if (CheckCorrection(array))
             {
-                for (int i = 0; i < array.GetLength(1); ++i)
+                output.Write("Урок");
+                for(int i=0; i<array.GetLength(1); ++i)
+                    output.Write($"\t{array[0, i].Group}\t\t");
+                output.WriteLine();
+                for(int i=0; i<3; ++i)
                 {
-                    Console.Write("Урок\t5.1\t5.2\t5.3");
-                }
-                for (int i = 0; i < n; ++i)
-                {
-                    Console.Write($"{i + 1} ");
-                    for (int j = 0; j < groups.Length; ++j)
+                    output.Write($"{i + 1}\t");
+                    for (Groups j=Groups.five_one; j<=Groups.five_three; ++j)
                     {
-                        Console.Write("{0} {1} {2} ", array[i, j].Classroom, array[i, j].Subject, array[i, j].Teacher); 
+                        if (array[i, (int)j - 1].Classroom == 0)
+                            output.Write("\t\t\t");
+                        else 
+                            output.Write($"{array[i, (int)j - 1].Classroom} {array[i, (int)j - 1].Subject} {array[i, (int)j - 1].Teacher}\t");
                     }
-                    Console.WriteLine();
+                    output.WriteLine();
                 }
             }
             else
-            {
-                Console.WriteLine("Error"); // maybe input.WriteLine("Error");
-            }
-            //input.Close();
-            //output.Close();
-            Console.ReadKey();
+                output.WriteLine("Error!"); 
+            input.Close();
+            output.Close();
         }
     }
 }
