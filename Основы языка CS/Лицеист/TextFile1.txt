@@ -5,17 +5,17 @@ namespace Лицеист
 {
     enum Groups
     {
-        five_one = 1,
+        five_one=1,
         five_two,
         five_three
     };
 
     enum Classrooms
     {
-        one_zero_five = 105,
-        one_one_zero = 110,
-        two_zero_one = 201,
-        three_zero_four = 304
+        one_zero_five=105,
+        one_one_zero=110,
+        two_zero_one=201,
+        three_zero_four=304
     };
 
     struct Lesson
@@ -26,22 +26,17 @@ namespace Лицеист
         public string Subject;
         public int Number;
     }
-
+    
     class Program
     {
-        /// <summary>
-        /// Проверка расписания на корректность
-        /// </summary>
-        /// <param name="array">Массив</param>
-        /// <returns>Тру/Фолс</returns>
         static bool CheckCorrection(Lesson[,] array)
         {
             bool flag = true;
-            for (int i = 0; i < array.GetLength(0); ++i)
+            for(int i=0; i<array.GetLength(0); ++i)
             {
-                for (int j = 0; j < array.GetLength(1); ++j)
+                for(int j=0; j<array.GetLength(1); ++j)
                 {
-                    for (int k = j + 1; k < array.GetLength(1) - 1; ++k)
+                    for (int k = j+1; k < array.GetLength(1)-1; ++k)
                     {
                         if ((int)array[i, j].Classroom == (int)array[i, k].Classroom || array[i, j].Teacher == array[i, k].Teacher || array[i, j].Subject == array[i, k].Subject)
                         {
@@ -54,10 +49,6 @@ namespace Лицеист
             return flag;
         }
 
-        /// <summary>
-        /// Функция ввода структур в массив
-        /// </summary>
-        /// <returns>Заполненный массив структур</returns>
         static Lesson[,] Input()
         {
             StreamReader input = new StreamReader("C:\\Users\\chels\\Desktop\\oop\\Основы языка CS\\Лицеист\\input.txt");
@@ -77,10 +68,6 @@ namespace Лицеист
             return array;
         }
 
-        /// <summary>
-        /// Вывод расписания и окон
-        /// </summary>
-        /// <param name="array">Массв</param>
         static void Output(Lesson[,] array)
         {
             StreamWriter output = new StreamWriter("C:\\Users\\chels\\Desktop\\oop\\Основы языка CS\\Лицеист\\output.txt");
@@ -90,7 +77,7 @@ namespace Лицеист
             {
                 output.Write("Урок");
                 for (int i = 0; i < array.GetLength(1); ++i)
-                    output.Write($"\t5.{(int)array[0, i].Group}\t\t\t\t\t");
+                    output.Write($"\t{array[0, i].Group}\t\t");
                 output.WriteLine();
                 for (int i = 0; i < 3; ++i)
                 {
@@ -98,9 +85,9 @@ namespace Лицеист
                     for (Groups j = Groups.five_one; j <= Groups.five_three; ++j)
                     {
                         if (array[i, (int)j - 1].Classroom == 0)
-                            output.Write("\t\t\t\t\t\t");
+                            output.Write("\t\t\t");
                         else
-                            output.Write($"{(int)array[i, (int)j - 1].Classroom} {array[i, (int)j - 1].Subject} {array[i, (int)j - 1].Teacher}\t");
+                            output.Write($"{array[i, (int)j - 1].Classroom} {array[i, (int)j - 1].Subject} {array[i, (int)j - 1].Teacher}\t");
                     }
                     output.WriteLine();
                 }
@@ -108,16 +95,20 @@ namespace Лицеист
                 {
                     for (int j = 0; j < array.GetLength(1); ++j)
                     {
-                        if (array[i, j].Classroom == 0)
+                        if ((int)array[i, j].Classroom == 0)
                         {
                             for (int k = 0; k < array.GetLength(1); ++k)
                             {
                                 if (k == j) continue;
                                 else
                                 {
-                                    for (Classrooms l = Classrooms.one_zero_five; l <= Classrooms.three_zero_four; ++l)
+                                    for (Classrooms l = Classrooms.one_one_zero; l <= Classrooms.three_zero_four; ++l)
                                     {
-                                        // дописать
+                                        if ((int)l != (int)array[i, k].Classroom)
+                                        {
+                                            output.WriteLine($"{(int)l}");
+                                            break;
+                                        }
                                     }
                                 }
                             }
