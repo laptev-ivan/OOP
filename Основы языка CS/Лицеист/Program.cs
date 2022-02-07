@@ -10,17 +10,9 @@ namespace Лицеист
         five_three
     };
 
-    enum Classrooms
-    {
-        one_zero_five = 105,
-        one_one_zero = 110,
-        two_zero_one = 201,
-        three_zero_four = 304
-    };
-
     struct Lesson
     {
-        public Classrooms Classroom;
+        public int Classroom;
         public string Teacher;
         public Groups Group;
         public string Subject;
@@ -29,6 +21,8 @@ namespace Лицеист
 
     class Program
     {
+        static int[] classrooms = new int[] { 105, 110, 201, 304 };
+
         /// <summary>
         /// Проверка расписания на корректность
         /// </summary>
@@ -43,7 +37,7 @@ namespace Лицеист
                 {
                     for (int k = j + 1; k < array.GetLength(1) - 1; ++k)
                     {
-                        if ((int)array[i, j].Classroom == (int)array[i, k].Classroom || array[i, j].Teacher == array[i, k].Teacher || array[i, j].Subject == array[i, k].Subject)
+                        if (array[i, j].Classroom == array[i, k].Classroom || array[i, j].Teacher == array[i, k].Teacher || array[i, j].Subject == array[i, k].Subject)
                         {
                             flag = false;
                             break;
@@ -71,7 +65,7 @@ namespace Лицеист
                 {
                     if(elem.Group==group)
                     {
-                        Console.WriteLine("{0} {1} {2} {3}", elem.Number, (int)elem.Classroom, elem.Subject, elem.Teacher);
+                        Console.WriteLine("{0} {1} {2} {3}", elem.Number, elem.Classroom, elem.Subject, elem.Teacher);
                     }
                 }
             }
@@ -82,13 +76,24 @@ namespace Лицеист
                 {
                     if(elem.Number==number)
                     {
-                        Console.WriteLine("{0} {1} {2} {3}", (int)elem.Group, (int)elem.Classroom, elem.Subject, elem.Teacher);
+                        Console.WriteLine("{0} {1} {2} {3}", (int)elem.Group, elem.Classroom, elem.Subject, elem.Teacher);
                     }
                 }
             }
             else
             {
                 Console.WriteLine("Error");
+            }
+        }
+
+        static void Check(int elem)
+        {
+            for(int i=0; i<classrooms.Length; ++i)
+            {
+                if (elem == classrooms[i])
+                {
+                    classrooms[i] = 0;
+                }
             }
         }
 
@@ -110,7 +115,15 @@ namespace Лицеист
                             if (k == j) continue;
                             else
                             {
-                                //дописать
+                                Check(array[i, k].Classroom);
+                                foreach (int elem in classrooms)
+                                {
+                                    if (elem != 0)
+                                    {
+                                        output.WriteLine($"{elem} - урок {i+1} группа 5.{j+1}");
+                                        break;
+                                    }
+                                }
                             }
                         }
                     }
@@ -133,7 +146,7 @@ namespace Лицеист
                 Groups group = (Groups)int.Parse(input.ReadLine());
                 array[number - 1, (int)group - 1].Number = number;
                 array[number - 1, (int)group - 1].Group = group;
-                array[number - 1, (int)group - 1].Classroom = (Classrooms)int.Parse(input.ReadLine());
+                array[number - 1, (int)group - 1].Classroom = int.Parse(input.ReadLine());
                 array[number - 1, (int)group - 1].Subject = input.ReadLine();
                 array[number - 1, (int)group - 1].Teacher = input.ReadLine();
             }
@@ -164,11 +177,11 @@ namespace Лицеист
                         if (array[i, (int)j - 1].Classroom == 0)
                             output.Write("\t\t\t\t\t\t");
                         else
-                            output.Write($"{(int)array[i, (int)j - 1].Classroom} {array[i, (int)j - 1].Subject} {array[i, (int)j - 1].Teacher}\t");
+                            output.Write($"{array[i, (int)j - 1].Classroom} {array[i, (int)j - 1].Subject} {array[i, (int)j - 1].Teacher}\t");
                     }
                     output.WriteLine();
                 }
-                Choice(array, output);
+                //Choice(array, output);
                 Window(array, output);
             }
             else
