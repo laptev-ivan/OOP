@@ -55,12 +55,76 @@ namespace Лицеист
         }
 
         /// <summary>
+        /// Выборка учебному дню или уроку
+        /// </summary>
+        /// <param name="array">Массив</param>
+        /// <param name="output">Стримрайтер</param>
+        static void Choice(Lesson[,] array, StreamWriter output)
+        {
+            Console.WriteLine("Если хотите выборку по учебным группам - нажмите 0.");
+            Console.WriteLine("Если хотите выборку по урокам - нажмите 1.");
+            int menu = int.Parse(Console.ReadLine());
+            if (menu == 0)
+            {
+                Console.WriteLine("Введите номер группы."); Groups group = (Groups)int.Parse(Console.ReadLine());
+                foreach(Lesson elem in array)
+                {
+                    if(elem.Group==group)
+                    {
+                        Console.WriteLine("{0} {1} {2} {3}", elem.Number, (int)elem.Classroom, elem.Subject, elem.Teacher);
+                    }
+                }
+            }
+            else if (menu == 1)
+            {
+                Console.WriteLine("Введите номер урока. "); int number = int.Parse(Console.ReadLine());
+                foreach(Lesson elem in array)
+                {
+                    if(elem.Number==number)
+                    {
+                        Console.WriteLine("{0} {1} {2} {3}", (int)elem.Group, (int)elem.Classroom, elem.Subject, elem.Teacher);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Error");
+            }
+        }
+
+        /// <summary>
+        /// Вывод окна 
+        /// </summary>
+        /// <param name="array">Массив</param>
+        /// <param name="output">Стримрайтер</param>
+        static void Window(Lesson[,] array, StreamWriter output)
+        {
+            for (int i = 0; i < array.GetLength(0); ++i)
+            {
+                for (int j = 0; j < array.GetLength(1); ++j)
+                {
+                    if (array[i, j].Classroom == 0)
+                    {
+                        for (int k = 0; k < array.GetLength(1); ++k)
+                        {
+                            if (k == j) continue;
+                            else
+                            {
+                                //дописать
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Функция ввода структур в массив
         /// </summary>
         /// <returns>Заполненный массив структур</returns>
         static Lesson[,] Input()
         {
-            StreamReader input = new StreamReader("C:\\Users\\chels\\Desktop\\oop\\Основы языка CS\\Лицеист\\input.txt");
+            StreamReader input = new StreamReader("Z:\\CP\\Основы языка CS\\Лицеист\\input.txt");
             int n = int.Parse(input.ReadLine());
             Lesson[,] array = new Lesson[3, 3];
             for (int i = 0; i < n; ++i)
@@ -83,7 +147,7 @@ namespace Лицеист
         /// <param name="array">Массв</param>
         static void Output(Lesson[,] array)
         {
-            StreamWriter output = new StreamWriter("C:\\Users\\chels\\Desktop\\oop\\Основы языка CS\\Лицеист\\output.txt");
+            StreamWriter output = new StreamWriter("Z:\\CP\\Основы языка CS\\Лицеист\\output.txt");
             for (Groups i = Groups.five_one; i <= Groups.five_three; ++i)
                 Console.WriteLine($"{i}, соответствует {(int)i}");
             if (CheckCorrection(array))
@@ -104,26 +168,8 @@ namespace Лицеист
                     }
                     output.WriteLine();
                 }
-                for (int i = 0; i < array.GetLength(0); ++i)
-                {
-                    for (int j = 0; j < array.GetLength(1); ++j)
-                    {
-                        if (array[i, j].Classroom == 0)
-                        {
-                            for (int k = 0; k < array.GetLength(1); ++k)
-                            {
-                                if (k == j) continue;
-                                else
-                                {
-                                    for (Classrooms l = Classrooms.one_zero_five; l <= Classrooms.three_zero_four; ++l)
-                                    {
-                                        // дописать
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                Choice(array, output);
+                Window(array, output);
             }
             else
                 output.WriteLine("Error");
