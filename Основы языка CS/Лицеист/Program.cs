@@ -21,6 +21,7 @@ namespace Лицеист
 
     class Program
     {
+        static int[] classrooms = new int[] { 105, 110, 201, 304 };
         /// <summary>
         /// Проверка расписания на корректность
         /// </summary>
@@ -103,24 +104,21 @@ namespace Лицеист
                             if (k == j) continue;
                             else
                             {
-
-                                int[] classrooms = new int[] { 105, 110, 201, 304 };
-                                foreach (int elem in classrooms)
+                                for (int l=0; l<classrooms.Length; ++l)
                                 {
-                                    for (int l = 0; l < classrooms.Length; ++l)
+                                    if (classrooms[l] == array[i, k].Classroom)
                                     {
-                                        if (elem == classrooms[l])
-                                        {
-                                            classrooms[i] = 0;
-                                        }
-                                    }
-                                    if (elem != 0)
-                                    {
-                                        Console.WriteLine($"{elem} - урок {i+1} группа 5.{j+1}");
+                                        classrooms[l] = 0;
                                         break;
                                     }
                                 }
                             }
+                        }
+                        for(int l=0; l<classrooms.Length; ++l)
+                        if (classrooms[l] != 0)
+                        {
+                            output.WriteLine($"{classrooms[l]} - урок {i + 1} группа 5.{j + 1}");
+                            break;
                         }
                     }
                 }
@@ -133,7 +131,7 @@ namespace Лицеист
         /// <returns>Заполненный массив структур</returns>
         static Lesson[,] Input()
         {
-            StreamReader input = new StreamReader("C:\\Users\\chels\\Desktop\\oop\\Основы языка CS\\Лицеист\\input.txt");
+            StreamReader input = new StreamReader("Z:\\CP\\Основы языка CS\\Лицеист\\input.txt");
             int n = int.Parse(input.ReadLine());
             Lesson[,] array = new Lesson[3, 3];
             for (int i = 0; i < n; ++i)
@@ -156,7 +154,7 @@ namespace Лицеист
         /// <param name="array">Массв</param>
         static void Output(Lesson[,] array)
         {
-            StreamWriter output = new StreamWriter("C:\\Users\\chels\\Desktop\\oop\\Основы языка CS\\Лицеист\\output.txt");
+            StreamWriter output = new StreamWriter("Z:\\CP\\Основы языка CS\\Лицеист\\output.txt");
             for (Groups i = Groups.five_one; i <= Groups.five_three; ++i)
                 Console.WriteLine($"{i}, соответствует {(int)i}");
             if (CheckCorrection(array))
