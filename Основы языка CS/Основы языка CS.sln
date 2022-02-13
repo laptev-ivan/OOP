@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Пила", "Пила\Пил
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Сложные типы данных", "Сложные типы данных\Сложные типы данных.csproj", "{C75B4723-C02C-47AB-AE13-41A6B285113A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Лицеист", "Лицеист\Лицеист.csproj", "{4CD8674E-C208-46F0-B02C-F626EDD0D174}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Лицеист", "Лицеист\Лицеист.csproj", "{4CD8674E-C208-46F0-B02C-F626EDD0D174}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Геометрическая фигура", "Геометрическая фигура\Геометрическая фигура.csproj", "{521DF43A-8B52-474D-8CFD-7C983EAA19BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{4CD8674E-C208-46F0-B02C-F626EDD0D174}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CD8674E-C208-46F0-B02C-F626EDD0D174}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CD8674E-C208-46F0-B02C-F626EDD0D174}.Release|Any CPU.Build.0 = Release|Any CPU
+		{521DF43A-8B52-474D-8CFD-7C983EAA19BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{521DF43A-8B52-474D-8CFD-7C983EAA19BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{521DF43A-8B52-474D-8CFD-7C983EAA19BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{521DF43A-8B52-474D-8CFD-7C983EAA19BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
