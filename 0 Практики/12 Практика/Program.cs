@@ -4,9 +4,9 @@ namespace _12_Практика
 {
     class Point3D
     {
-        public int x;
-        public int y;
-        public int z;
+        private int x;
+        private int y;
+        private int z;
 
         public Point3D()
         {
@@ -29,9 +29,24 @@ namespace _12_Практика
             else if (c == 'z')
                 z += s;
         }
+
         public void PrintXYZ()
         {
             Console.WriteLine($"X:{x}, Y:{y}, Z:{z}");
+        }
+
+        public double RadiusVector()
+        {
+            double r = Math.Sqrt(x * x + y * y + z * z);
+            return r;
+        }
+
+        public void AddDots(Point3D point2)
+        {
+            x += point2.x;
+            y += point2.y;
+            z += point2.z;
+            Console.WriteLine($"Сложение двух точек X:{x}, Y:{y}, Z:{z}");
         }
     }
 
@@ -52,12 +67,12 @@ namespace _12_Практика
             else if(ok1==1)
             {
                 Console.Write("Введите координату по OX: ");
-                int x = int.Parse(Console.ReadLine());
+                int x1 = int.Parse(Console.ReadLine());
                 Console.Write("Введите координату по OY: ");
-                int y = int.Parse(Console.ReadLine());
+                int y1 = int.Parse(Console.ReadLine());
                 Console.Write("Введите координату по OZ: ");
-                int z = int.Parse(Console.ReadLine());
-                Point3D point2 = new Point3D(x, y, z);
+                int z1 = int.Parse(Console.ReadLine());
+                Point3D point1 = new Point3D(x1, y1, z1);
                 Console.WriteLine("Введите 0 — не сдвигать");
                 Console.WriteLine("Введите 1 — сдвигать");
                 int ok2 = int.Parse(Console.ReadLine());
@@ -67,9 +82,21 @@ namespace _12_Практика
                     char c = char.Parse(Console.ReadLine());
                     Console.WriteLine("Расстояние");
                     int s = int.Parse(Console.ReadLine());
-                    point2.Move(c, s);
+                    point1.Move(c, s);
                 }
-                point2.PrintXYZ();
+                point1.PrintXYZ();
+                double radius1 = point1.RadiusVector();
+                Console.WriteLine($"Длина радиус вектора: {radius1:F2}");
+                Console.Write("Введите координату по OX для второй точки: ");
+                int x2 = int.Parse(Console.ReadLine());
+                Console.Write("Введите координату по OY для второй точки: ");
+                int y2 = int.Parse(Console.ReadLine());
+                Console.Write("Введите координату по OZ для второй точки: ");
+                int z2 = int.Parse(Console.ReadLine());
+                Point3D point2 = new Point3D(x2, y2, z2);
+                double radius2 = point2.RadiusVector();
+                Console.WriteLine($"Длина радиус вектора второй точки: {radius2:F2}");
+                point1.AddDots(point2);
             }
             Console.ReadKey();
         }
