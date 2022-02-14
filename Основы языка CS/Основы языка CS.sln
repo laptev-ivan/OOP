@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Лицеист", "Лице�
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Геометрическая фигура", "Геометрическая фигура\Геометрическая фигура.csproj", "{521DF43A-8B52-474D-8CFD-7C983EAA19BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Геометрическая фигура 1", "Геометрическая фигура 1\Геометрическая фигура 1.csproj", "{2B60D687-AD73-4A66-B39F-2BC5A1D83300}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{521DF43A-8B52-474D-8CFD-7C983EAA19BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{521DF43A-8B52-474D-8CFD-7C983EAA19BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{521DF43A-8B52-474D-8CFD-7C983EAA19BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B60D687-AD73-4A66-B39F-2BC5A1D83300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B60D687-AD73-4A66-B39F-2BC5A1D83300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B60D687-AD73-4A66-B39F-2BC5A1D83300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B60D687-AD73-4A66-B39F-2BC5A1D83300}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
