@@ -8,20 +8,18 @@ namespace Геометрическая_фигура
         {
             private int a; //длина
             private int b; //ширина
-            private int h; //высота
-            private int c; //боковое ребро
+            private int h; //высота (ребро)
 
-            public Cuboid(int A, int B, int H, int C)
+            public Cuboid(int a, int b, int h)
             {
-                a = A;
-                b = B;
-                h = H;
-                c = C;
+                this.a = a;
+                this.b = b;
+                this.h = h;
             }
 
             public int Surface()
             {
-                return 2 * (a + b) * c;
+                return 2 * (a + b) * h;
             }
 
             public int Volume()
@@ -41,7 +39,7 @@ namespace Геометрическая_фигура
             Console.Write("Введите боковое ребро: ");
             int c = int.Parse(Console.ReadLine());
 
-            Cuboid figure = new Cuboid(a, b, h, c);
+            Cuboid figure = new Cuboid(a, b, h);
 
             int surface = figure.Surface();
             Console.WriteLine($"Площадь боковой поверхности параллелипипеда: {surface}");
