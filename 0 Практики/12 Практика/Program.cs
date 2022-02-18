@@ -20,18 +20,22 @@ namespace _12_Практика
             this.z = z;
         }
 
-        public Point3D(double xy)
+        public Point3D(decimal xy)
         {
             x = (int)xy;
-            xy %= 1;
-            y = (int)xy % 1;
-            z = 0;
+            decimal tmp = xy - (int)xy;
+            do
+            {
+                tmp *= 10;
+            } while(tmp%(int)tmp!=0);
+            y = (int)tmp;
         }
 
         public int setX
         {
             get
             {
+
                 return x;
             }
 
@@ -85,11 +89,13 @@ namespace _12_Практика
             return r;
         }
 
-        public void AddDots(Point3D point2)
+        public Point3D AddDots(Point3D point1, Point3D point2)
         {
-            x += point2.x;
-            y += point2.y;
-            z += point2.z;
+            Point3D point3 = new Point3D();
+            point3.x = x + point2.x;
+            point3.y = y + point2.y;
+            point3.z = z + point2.z;
+            return point3;
         }
 
         public void AddDots(int number)
@@ -139,7 +145,7 @@ namespace _12_Практика
                 sbyte doubleorint = sbyte.Parse(Console.ReadLine());
                 if (doubleorint == 1)
                 {
-                    double axises = double.Parse(Console.ReadLine());
+                    decimal axises = decimal.Parse(Console.ReadLine());
                     point1 = new Point3D(axises);
                 }
                 else
@@ -175,7 +181,7 @@ namespace _12_Практика
                 doubleorint = sbyte.Parse(Console.ReadLine());
                 if (doubleorint == 1)
                 {
-                    double axises = double.Parse(Console.ReadLine());
+                    decimal axises = decimal.Parse(Console.ReadLine());
                     point2 = new Point3D(axises);
                 }
                 else
@@ -198,9 +204,10 @@ namespace _12_Практика
                 sbyte ok3 = sbyte.Parse(Console.ReadLine());
                 if (ok3 == 0)
                 {
-                    point1.AddDots(point2);
+                    Point3D point3 = new Point3D();
+                    point3.AddDots(point1, point2);
                     Console.WriteLine("Сложение двух точек");
-                    point1.PrintXYZ();
+                    point3.PrintXYZ();
                 }
                 else if (ok3 == 1)
                 {
