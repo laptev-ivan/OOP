@@ -29,43 +29,73 @@ namespace Геометрическая_фигура
                 this.y = y; 
             }
 
-            public int getA
+
+            public int setgetA
             {
                 get
                 {
                     return a;
                 }
+                set
+                {
+                    if (value < 0)
+                        a = 1;
+                    else
+                        a = value;
+                }
             }
 
-            public int getB
+            public int setgetB
             {
                 get
                 {
                     return b;
                 }
+                set
+                {
+                    if (value < 0)
+                        b = 1;
+                    else
+                        b = value;
+                }
             }
 
-            public int getH
+            public int setgetH
             {
                 get
                 {
                     return h;
                 }
+                set
+                {
+                    if (value < 0)
+                        h = 1;
+                    else
+                        h = value;
+                }
             }
 
-            public int getX
+            public int setgetX
             {
                 get
                 {
                     return x;
                 }
+                set
+                {
+                    x = value;
+                }
             }
 
-            public int getY
+            public int setgetY
             {
                 get
                 {
                     return y;
+                }
+                set
+                {
+                    y = value;
                 }
             }
 
@@ -95,11 +125,11 @@ namespace Геометрическая_фигура
 
         static void Output(Cuboid figure)
         {
-            Console.WriteLine($"Длина прямоугольного параллелепипеда: {figure.getA}");
-            Console.WriteLine($"Ширина прямоугольного параллелепипеда: {figure.getB}");
-            Console.WriteLine($"Высота прямоугольного параллелепипеда: {figure.getH}");
-            Console.WriteLine($"X-координата прямоугольного параллелепипеда: {figure.getX}");
-            Console.WriteLine($"Y-координата прямоугольного параллелепипеда: {figure.getY}");
+            Console.WriteLine($"Длина прямоугольного параллелепипеда: {figure.setgetA}");
+            Console.WriteLine($"Ширина прямоугольного параллелепипеда: {figure.setgetB}");
+            Console.WriteLine($"Высота прямоугольного параллелепипеда: {figure.setgetH}");
+            Console.WriteLine($"X-координата прямоугольного параллелепипеда: {figure.setgetX}");
+            Console.WriteLine($"Y-координата прямоугольного параллелепипеда: {figure.setgetY}");
         }
 
         static void Main(string[] args)
@@ -109,18 +139,18 @@ namespace Геометрическая_фигура
             char c = char.Parse(Console.ReadLine());
             if (c == 'y')
             {
+                figure = new Cuboid();
                 Console.Write("Введите длину: ");
-                int a = int.Parse(Console.ReadLine());
+                figure.setgetA = int.Parse(Console.ReadLine());
                 Console.Write("Введите ширину: ");
-                int b = int.Parse(Console.ReadLine());
+                figure.setgetB = int.Parse(Console.ReadLine());
                 Console.Write("Введите высоту: ");
-                int h = int.Parse(Console.ReadLine());
+                figure.setgetH = int.Parse(Console.ReadLine());
                 Console.Write("Введите начальную координату для OX: ");
-                int x = int.Parse(Console.ReadLine());
+                figure.setgetX = int.Parse(Console.ReadLine());
                 Console.Write("Введите начальную координату для OY: ");
-                int y = int.Parse(Console.ReadLine());
+                figure.setgetY = int.Parse(Console.ReadLine());
                 Console.WriteLine();
-                figure = new Cuboid(a, b, h, x, y);
             }
             else
             {
@@ -135,14 +165,35 @@ namespace Геометрическая_фигура
             Console.WriteLine($"Объем параллелипипеда: {volume}");
 
             Console.WriteLine("Если хотите переместить по оси - 1, иначе - 0");
-            sbyte ok = sbyte.Parse(Console.ReadLine());
-            if (ok == 1)
+            sbyte ok1 = sbyte.Parse(Console.ReadLine());
+            if (ok1 == 1)
             {
                 Console.WriteLine("Перемещение по OX (x) или OY (y)?");
                 char axis = char.Parse(Console.ReadLine());
                 Console.WriteLine($"Введите расстояние, на которое сдвинуть параллелипипед по оси {axis}");
                 int s = int.Parse(Console.ReadLine());
                 figure.Move(axis, s);
+            }
+            Console.WriteLine("Если хотите изменить параметры прямоугольника - 1, иначе - 0");
+            sbyte ok2 = sbyte.Parse(Console.ReadLine());
+            if(ok2==1)
+            {
+                Console.WriteLine("Введите параметр, который хотите изменить (a, b, h)");
+                char param = char.Parse(Console.ReadLine());
+                Console.WriteLine($"Введите число, на которое хотите поменять параметр");
+                int s = int.Parse(Console.ReadLine());
+                if(param=='a')
+                {
+                    figure.setgetA = s;
+                }
+                else if (param == 'b')
+                {
+                    figure.setgetB = s;
+                }
+                else if (param = 'h')
+                {
+                    figure.setgetH = s;
+                }
             }
             Output(figure);
             Console.WriteLine();
