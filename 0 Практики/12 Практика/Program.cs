@@ -10,14 +10,24 @@ namespace _12_Практика
 
         public Point3D()
         {
-            x = y = z = 0;
+            x = 5;
+            y = 10;
+            z = 15;
         }
 
-        public Point3D(int x, int y, int z)
+        private Point3D(int x, int y, int z)
         {
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+
+        public static Point3D Point(int x, int y, int z)
+        {
+            if (x % 5 == 0 || y % 5 == 0 || z % 5 == 0)
+                return new Point3D(x, y, z);
+            Console.WriteLine("Сработал конструктор по умолчанию.");
+            return new Point3D();
         }
 
         public Point3D(decimal xy)
@@ -27,50 +37,26 @@ namespace _12_Практика
             do
             {
                 tmp *= 10;
-            } while(tmp%(int)tmp!=0);
+            } while (tmp % (int)tmp != 0);
             y = (int)tmp;
         }
 
         public int setX
         {
-            get
-            {
-
-                return x;
-            }
-
-            set
-            {
-                if (value >= 0) x = value;
-            }
+            get { return x; }
+            set { if (value >= 0) x = value; }
         }
 
         public int setY
         {
-            get
-            {
-                return y;
-            }
-
-            set
-            {
-                if (value >= 0 && value < 100) y = value;
-                else y = 100;
-            }
+            get { return y; }
+            set { if (value >= 0 && value < 100) y = value; else y = 100; }
         }
 
         public int setZ
         {
-            get
-            {
-                return z;
-            }
-
-            set
-            {
-                if (value <= x + y) z = value;
-                else Console.WriteLine("Z больше X+Y");
-            }
+            get { return z; }
+            set { if (value <= x + y) z = value; else Console.WriteLine("Z больше X+Y"); }
         }
 
         public void Move(char c, int s)
@@ -89,13 +75,11 @@ namespace _12_Практика
             return r;
         }
 
-        public Point3D AddDots(Point3D point1, Point3D point2)
+        public void AddDots(Point3D point2)
         {
-            Point3D point3 = new Point3D();
-            point3.x = x + point2.x;
-            point3.y = y + point2.y;
-            point3.z = z + point2.z;
-            return point3;
+            x += point2.x;
+            y += point2.y;
+            z += point2.z;
         }
 
         public void AddDots(int number)
@@ -112,11 +96,6 @@ namespace _12_Практика
             z += c;
         }
 
-        public void PrintXYZ()
-        {
-            Console.WriteLine($"X:{x}, Y:{y}, Z:{z}");
-        }
-
         public bool InOutArea()
         {
             bool ok = false;
@@ -128,6 +107,11 @@ namespace _12_Практика
 
     class Program
     {
+        static void PrintXYZ(Point3D point)
+        {
+            Console.WriteLine($"X:{point.setX}, Y:{point.setY}, Z:{point.setZ}");
+        }
+
         static void Main(string[] args)
         {
             Point3D point1 = new Point3D();
@@ -137,7 +121,7 @@ namespace _12_Практика
             if (ok1 == 0)
             {
                 point1 = new Point3D();
-                point1.PrintXYZ();
+                PrintXYZ(point1);
             }
             else if (ok1 == 1)
             {
@@ -172,7 +156,7 @@ namespace _12_Практика
                     int s = int.Parse(Console.ReadLine());
                     point1.Move(c, s);
                 }
-                point1.PrintXYZ();
+                PrintXYZ(point1);
                 double radius1 = point1.RadiusVector();
                 Console.WriteLine($"Длина радиус вектора: {radius1:F2}");
 
@@ -197,17 +181,16 @@ namespace _12_Практика
                     point2.setY = y2;
                     point2.setZ = z2;
                 }
-                point2.PrintXYZ();
+                PrintXYZ(point2);
                 double radius2 = point2.RadiusVector();
                 Console.WriteLine($"Длина радиус вектора второй точки: {radius2:F2}");
                 Console.WriteLine("Если хотите сложить точку с точкой - 0, с другой точкой - 1 с числом - любая другая цифра");
                 sbyte ok3 = sbyte.Parse(Console.ReadLine());
                 if (ok3 == 0)
                 {
-                    Point3D point3 = new Point3D();
-                    point3.AddDots(point1, point2);
+                    point1.AddDots(point2);
                     Console.WriteLine("Сложение двух точек");
-                    point3.PrintXYZ();
+                    PrintXYZ(point1);
                 }
                 else if (ok3 == 1)
                 {
@@ -216,22 +199,30 @@ namespace _12_Практика
                     int yY = int.Parse(Console.ReadLine());
                     int zZ = int.Parse(Console.ReadLine());
                     point1.AddDots(xX, yY, zZ);
-                    point1.PrintXYZ();
+                    PrintXYZ(point1);
                 }
                 else
                 {
                     Console.WriteLine("Введите число на которое хотите увеличить каждую кооридинату");
                     int Number = int.Parse(Console.ReadLine());
                     point1.AddDots(Number);
-                    point1.PrintXYZ();
+                    PrintXYZ(point1);
                 }
                 if (point1.InOutArea())
                     Console.WriteLine("Точка находится в области");
                 else
                     Console.WriteLine("Точка вне области");
+                Console.WriteLine("Введите координаты так чтобы хотя бы одна из них была кратна пяти.");
+                Console.Write("Введите координату по OX: ");
+                int x = int.Parse(Console.ReadLine());
+                Console.Write("Введите координату по OY: ");
+                int y = int.Parse(Console.ReadLine());
+                Console.Write("Введите координату по OZ: ");
+                int z = int.Parse(Console.ReadLine());
+                Point3D point4 = Point3D.Point(x, y, z);
+                PrintXYZ(point4);
             }
             Console.ReadKey();
         }
     }
 }
-
