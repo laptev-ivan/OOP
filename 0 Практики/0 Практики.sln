@@ -45,7 +45,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "10 Практика", "10 �
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "11 Практика", "11 Практика\11 Практика.csproj", "{072788B1-C20B-4831-9CB7-FBB48A6A5B03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "12 Практика", "12 Практика\12 Практика.csproj", "{95D199A7-D8FE-4028-AF58-2DCEE3886F5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "12 Практика", "12 Практика\12 Практика.csproj", "{95D199A7-D8FE-4028-AF58-2DCEE3886F5D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{602C8939-BDE5-46F7-9E0F-6ABBC2643EF8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
