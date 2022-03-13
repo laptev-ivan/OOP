@@ -31,10 +31,9 @@ namespace _12_Практика {
                 Console.Write("Введите координату по OZ: ");
                 int z = int.Parse(Console.ReadLine());
                 if (x * y * z % 5 == 0) {
-                    point = new Point3D(x, y, z);
-                    point.x = point.setX;
-                    point.y = point.setY;
-                    point.z = point.setZ;
+                    point.setX = x;
+                    point.setY = y;
+                    point.setZ = z;
                 }
             }
             else if (doubleorint == 1) {
@@ -50,20 +49,20 @@ namespace _12_Практика {
         }
 
         public Point3D(decimal xy) {
-            x = (int)xy;
+            setX = (int)xy;
             decimal tmp = xy - (int)xy;
             do {
                 tmp *= 10;
             } while (tmp % (int)tmp != 0);
-            y = (int)tmp;
+            setY = (int)tmp;
         }
 
         public int setX {
             get { return x; }
             set {
                 try {
-                    if (value >= 0) x = value;
-                    else throw new Exception(@"координата X не может быть отрицательной.");
+                    if (value <= 0) throw new Exception(@"координата X не может быть отрицательной.");
+                    else x = value;
                 }
                 catch (Exception error) {
                     Console.WriteLine("Ошибка: " + error.Message);
