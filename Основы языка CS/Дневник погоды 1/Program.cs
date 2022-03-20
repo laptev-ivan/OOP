@@ -219,7 +219,6 @@ namespace Дневник_погоды_1 {
                 }
             } while (ok != 9);
             Console.WriteLine("Конец программы!");
-
             Console.ReadKey();
         }
     }
