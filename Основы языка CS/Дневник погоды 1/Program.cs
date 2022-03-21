@@ -58,16 +58,20 @@ namespace Дневник_погоды_1 {
         }
 
         public int MaximalDifference(out int dayMaximalDifference) {
-            int max = temperature[0, 0], index = 0;
-            for (int i = day+1; i < DaysInMatrix-day; ++i)
-                for (int j = 0; j < temperature.GetLength(1); ++j)
-                    if (i < daysMonth[month - 1])
-                        if (Math.Abs(temperature[i, j] - temperature[i - 1, j]) > max && temperature[i, j] != -1000) {
-                            max = Math.Abs(temperature[i, j] - temperature[i - 1, j]);
-                            index = i;
-                            break;
+            int max = temperature[0, 0], index = 0, delta = Math.Abs(temperature[0, 0] - temperature[0, 1]), cnt = 1;
+            for (int i = 0; i < temperature.GetLength(0); ++i) {
+                for (int j = 1; j < 7; ++j) {
+                    delta = Math.Abs(temperature[i, j] - temperature[i, j - 1]);
+                    if (j <= day) continue;
+                    else {
+                        if (delta > max) {
+                            max = delta;
                         }
-            dayMaximalDifference = index;
+                        cnt++;
+                    }
+                }
+            }
+            dayMaximalDifference = cnt;
             return max;
         }
 
@@ -82,11 +86,13 @@ namespace Дневник_погоды_1 {
                 return day;
             }
             set {
-                if (value > 31 || value < 1) {
+                if (value > 7 || value < 1) {
                     day = 1;
                     throw new Exception(@"Ошибка: значение дня не может быть отрицательным или больше 31. Значение дня равно 1.");
                 }
                 else {
+                    int k = day - value;
+                    
                 }
             }
         }
@@ -214,8 +220,8 @@ namespace Дневник_погоды_1 {
                     case (8):
                         Console.WriteLine("Температура скачка за месяц: " + temperature.MaximalDifference(out dayMaximalDifference));
                         Console.WriteLine($"Номер дня: {dayMaximalDifference}");
+                        Console.WriteLine();
                         break;
-                        
                 }
             } while (ok != 9);
             Console.WriteLine("Конец программы!");
