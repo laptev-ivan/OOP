@@ -36,9 +36,9 @@ namespace Дневник_погоды_1 {
         DaysOfWeek day;
 
         public MatrixWeather() {
-            month = Months.Февраль;
-            day = DaysOfWeek.Вт;
-            temperature = new int[daysMonth[(int)month - 1] / 7 + 1, 7];
+            month = Months.Август;
+            day = DaysOfWeek.Ср;
+            temperature = new int[(int)Math.Ceiling(daysMonth[(int)month - 1] / 7d), 7];
             int days = daysMonth[(int)month - 1]+(int)day-1;
             for (int i = 0; i < temperature.GetLength(0); ++i) 
                 for (int j = 0; j < temperature.GetLength(1); ++j) {
@@ -56,8 +56,11 @@ namespace Дневник_погоды_1 {
         public MatrixWeather(int month, int day) {
             this.month =(Months)month;
             this.day = (DaysOfWeek)day;
-            temperature = new int[daysMonth[month - 1] / 7 + 1, 7];
-            int days = daysMonth[month - 1] + day;
+            if(daysMonth[month - 1]==28&&day>0)
+                temperature = new int[(int)Math.Ceiling(daysMonth[month - 1] / 7d)+1, 7];
+            else
+                temperature = new int[(int)Math.Ceiling(daysMonth[month - 1] / 7d), 7];
+            int days = daysMonth[month - 1] + day-1;
             for (int i = 0; i < temperature.GetLength(0); ++i)
                 for (int j = 0; j < temperature.GetLength(1); ++j) {
                     if (days >= 0) {
@@ -142,44 +145,88 @@ namespace Дневник_погоды_1 {
             }
         }
 
+        private void ShiftLeft(ref int value) {
+            int k = (int)day - value;
+            int[] tmp = new int[temperature.GetLength(0) * temperature.GetLength(1)];
+            int count = 0;
+            for (int i = 0; i < temperature.GetLength(0); ++i) {
+                for (int j = 0; j < temperature.GetLength(1); ++j) {
+                    tmp[count] = temperature[i, j];
+                    ++count;
+                }
+            }
+            while (k > 0) {
+                for (int i = 1; i < tmp.Length; ++i)
+                    tmp[i - 1] = tmp[i];
+                --k;
+            }
+            int cnt = 0, len = tmp.Length - 1;
+            while (tmp[len - 1] == NoData) {
+                ++cnt;
+                --len;
+            }
+            int strings = temperature.GetLength(0);
+            if (cnt >= 7)
+                --strings;
+            for (int i = 0; i < strings; ++i)
+                for (int j = 0; j < temperature.GetLength(1); ++j)
+                    temperature[i, j] = tmp[7 * i + j];
+
+        }
+
+        private void ShiftRight(ref int value) {
+            int k = value - (int)day;
+            int[] tmp = new int[temperature.GetLength(0) * temperature.GetLength(1)];
+            int count = 0;
+            for (int i = 0; i < temperature.GetLength(0); ++i) {
+                for (int j = 0; j < temperature.GetLength(1); ++j) {
+                    tmp[count] = temperature[i, j];
+                    ++count;
+                }
+            }
+            while (k > 0) {
+                for (int i = 1; i < tmp.Length-1; ++i)
+                    tmp[tmp.Length-i] = tmp[tmp.Length-i-1];
+                --k;
+            }
+            //int cnt = 0, len = 0;
+            //while (tmp[len] == NoData) {
+            //    ++cnt;
+            //    ++len;
+            //}
+            //int cnt1 = 0, len1 = tmp.Length - 1;
+            //while (tmp[len1 - 1] == NoData) {
+            //    ++cnt1;
+            //    --len1;
+            //}            
+            //int strings = temperature.GetLength(0);
+            //if (cnt > cnt1)
+            //    ++strings;
+            if (tmp.Length / 7> temperature.GetLength(0)) {
+                temperature = new int[tmp.Length/7, 7];
+                for (int i = 0; i < tmp.Length; ++i)
+                    for (int j = 0; j < temperature.GetLength(1); ++j)
+                        temperature[i, j] = tmp[7 * i + j];
+            }
+        }
+
         public int Day {
             get {
                 return (int)day;
             }
             set {
-                if (value > 7 || value < 1) {
+                if (value > 6 || value < 0) {
                     day = DaysOfWeek.Пн;
                     throw new Exception(@"Ошибка: значение дня не может быть отрицательным или больше 7. Значение дня равно 1.");
                 }
                 else {
-                    int k;
                     if (value < (int)day) {
-                        k = (int)day - value;
-                        int[] tmp = new int[temperature.GetLength(0)*temperature.GetLength(1)];
-                        int count = 0;
-                            for (int i=0; i<temperature.GetLength(0); ++i) {
-                                for(int j=0; j<temperature.GetLength(1); ++j) {
-                                    tmp[count] = temperature[i, j];
-                                    count++;
-                                }
-                            }
-                        while (k >= 0) {
-                            for (int i = 1; i < tmp.Length; ++i) 
-                                tmp[i - 1] = tmp[i];
-                            --k;
-                        }
-                        int cnt = 0, len = tmp.Length - 1;
-                        while (tmp[len-1] == NoData) {
-                            ++cnt;
-                            --len;
-                        }
-                        int strings = temperature.GetLength(0);
-                        if (cnt >= 7) 
-                            --strings;
-                        for (int i = 0; i < strings; ++i) 
-                            for (int j = 0; j < temperature.GetLength(1); ++j) 
-                                temperature[i, j] = tmp[7 * i + j];
+                        ShiftLeft(ref value);
                     }
+                    else {
+                        ShiftRight(ref value);
+                    }
+                    day = (DaysOfWeek)value;
                 }
             }
         }
@@ -254,7 +301,7 @@ namespace Дневник_погоды_1 {
                         Console.WriteLine();
                         break;
                     case 1:
-                        Console.WriteLine($"День недели первого числа месяца: {temperature.Day}");
+                        Console.WriteLine($"День недели первого числа месяца: {temperature.Day} – {(DaysOfWeek)temperature.Day}");
                         Console.WriteLine();
                         break;
                     case 2:
