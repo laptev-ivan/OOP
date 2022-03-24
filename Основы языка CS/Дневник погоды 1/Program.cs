@@ -35,10 +35,13 @@ namespace Дневник_погоды_1 {
         Months month;
         DaysOfWeek day;
 
-        public MatrixWeather() {
-            month = Months.Август;
-            day = DaysOfWeek.Ср;
-            temperature = new int[(int)Math.Ceiling(daysMonth[(int)month - 1] / 7d), 7];
+        public MatrixWeather() { 
+            month = Months.Февраль;
+            day = DaysOfWeek.Сб;
+            if(7%(int) day>=1)
+                temperature = new int[(int)Math.Ceiling(daysMonth[(int)month - 1] / 7d)+1, 7];
+            else 
+                temperature = new int[(int)Math.Ceiling(daysMonth[(int)month - 1] / 7d), 7];
             int days = daysMonth[(int)month - 1]+(int)day-1;
             for (int i = 0; i < temperature.GetLength(0); ++i) 
                 for (int j = 0; j < temperature.GetLength(1); ++j) {
@@ -56,10 +59,10 @@ namespace Дневник_погоды_1 {
         public MatrixWeather(int month, int day) {
             this.month =(Months)month;
             this.day = (DaysOfWeek)day;
-            if(daysMonth[month - 1]==28&&day>0)
-                temperature = new int[(int)Math.Ceiling(daysMonth[month - 1] / 7d)+1, 7];
+            if (7 % (int)day >= 1)
+                temperature = new int[(int)Math.Ceiling(daysMonth[(int)month - 1] / 7d) + 1, 7];
             else
-                temperature = new int[(int)Math.Ceiling(daysMonth[month - 1] / 7d), 7];
+                temperature = new int[(int)Math.Ceiling(daysMonth[(int)month - 1] / 7d), 7];
             int days = daysMonth[month - 1] + day-1;
             for (int i = 0; i < temperature.GetLength(0); ++i)
                 for (int j = 0; j < temperature.GetLength(1); ++j) {
@@ -185,8 +188,8 @@ namespace Дневник_погоды_1 {
                 }
             }
             while (k > 0) {
-                for (int i = 1; i < tmp.Length-1; ++i)
-                    tmp[tmp.Length-i] = tmp[tmp.Length-i-1];
+                for (int i = 1; i < tmp.Length - 1; ++i)
+                    tmp[tmp.Length - i] = tmp[tmp.Length - i - 1];
                 --k;
             }
             //int cnt = 0, len = 0;
@@ -202,12 +205,11 @@ namespace Дневник_погоды_1 {
             //int strings = temperature.GetLength(0);
             //if (cnt > cnt1)
             //    ++strings;
-            if (tmp.Length / 7> temperature.GetLength(0)) {
-                temperature = new int[tmp.Length/7, 7];
-                for (int i = 0; i < tmp.Length; ++i)
+            //if (tmp.Length / 7 > temperature.GetLength(0)) { 
+                for (int i = 0; i < temperature.GetLength(0); ++i)
                     for (int j = 0; j < temperature.GetLength(1); ++j)
                         temperature[i, j] = tmp[7 * i + j];
-            }
+            //}
         }
 
         public int Day {
@@ -217,7 +219,7 @@ namespace Дневник_погоды_1 {
             set {
                 if (value > 6 || value < 0) {
                     day = DaysOfWeek.Пн;
-                    throw new Exception(@"Ошибка: значение дня не может быть отрицательным или больше 7. Значение дня равно 1.");
+                    throw new Exception(@"значение дня не может быть отрицательным или больше 7. Значение дня равно 1.");
                 }
                 else {
                     if (value < (int)day) {
@@ -273,9 +275,10 @@ namespace Дневник_погоды_1 {
                 Console.WriteLine($"{(int)i} соответсвует  {i}");
             Console.WriteLine("\n");
             byte ok =1;
-            do {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(
+            try {
+                do {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(
 @"Задачи, которые решает данная программа:
 0) Создать календарь температур с параметрами
 1) Вывести на экран день недели первого числа месяца
@@ -288,63 +291,75 @@ namespace Дневник_погоды_1 {
 8) Вывести на экран максимальный скачок температуры за месяц с номером дня и температурой до скачка
 9) Закрыть программу
 ");
-                Console.ResetColor();
-                Console.Write("Выберете действие: ");
-                ok = byte.Parse(Console.ReadLine());
-                switch (ok) {
-                    case 0:
-                        Console.Write("Введите номер дня недели (см. выше): ");
-                        int day = int.Parse(Console.ReadLine());
-                        Console.Write("Введите номер месяца (см. выше): ");
-                        int month = int.Parse(Console.ReadLine());
-                        temperature = new MatrixWeather(month, day);
-                        Console.WriteLine();
-                        break;
-                    case 1:
-                        Console.WriteLine($"День недели первого числа месяца: {temperature.Day} – {(DaysOfWeek)temperature.Day}");
-                        Console.WriteLine();
-                        break;
-                    case 2:
-                        Console.Write("Введите день недели первого числа месяца: ");
-                        temperature.Day = int.Parse(Console.ReadLine());
-                        Console.WriteLine("День недели изменен!");
-                        //TemperatureOutput(ref temperature);
-                        Console.WriteLine();
-                        break;
-                    case 3:
-                        MatrixWeather.TemperatureOutput(ref temperature);
-                        Console.WriteLine();
-                        break;
-                    case 4:
-                        int[,] array = temperature.Temperature;
-                        Console.WriteLine("Массив температур: ");
-                        for(int i=0; i<array.GetLength(0); ++i) 
-                            for(int j=0; j<array.GetLength(1); ++j) 
-                                Console.Write($"{array[i, j]} ");
+                    Console.ResetColor();
+                    Console.Write("Выберете действие: ");
+                    ok = byte.Parse(Console.ReadLine());
+                    switch (ok) {
+                        case 0:
+                            Console.Write("Введите номер дня недели (см. выше): ");
+                            int day = int.Parse(Console.ReadLine());
+                            Console.Write("Введите номер месяца (см. выше): ");
+                            int month = int.Parse(Console.ReadLine());
+                            temperature = new MatrixWeather(month, day);
                             Console.WriteLine();
-                        Console.WriteLine();
-                        break;
-                    case 5:
-                        Console.WriteLine($"Количество дней в месяце: {temperature.DaysInMatrix}");
-                        Console.WriteLine();
-                        break;
-                    case 6:
-                        Console.WriteLine($"Количество дней в месяце с температурой 0 градусов: {temperature.ZeroTempDays}");
-                        Console.WriteLine();
-                        break;
-                    case 7:
-                        Console.WriteLine("Температура скачка за месяц: " + temperature.MaximalDifference());
-                        Console.WriteLine();
-                        break;
-                    case 8:
-                        int dayMaximalDifference;
-                        Console.WriteLine("Температура скачка за месяц: " + temperature.MaximalDifference(out dayMaximalDifference));
-                        Console.WriteLine($"Номер дня: {dayMaximalDifference}");
-                        Console.WriteLine();
-                        break;
-                }
-            } while (ok != 9);
-            Console.WriteLine("Конец программы!");
+                            break;
+                        case 1:
+                            Console.WriteLine($"День недели первого числа месяца: {temperature.Day} – {(DaysOfWeek)temperature.Day}");
+                            Console.WriteLine();
+                            break;
+                        case 2:
+                            Console.Write("Введите день недели первого числа месяца: ");
+                            try {
+                                temperature.Day = int.Parse(Console.ReadLine());
+                                Console.WriteLine("День недели изменен!");
+                            }
+                            catch(Exception error) {
+                                Console.WriteLine("Ошибка: " + error.Message);
+                            }
+                            Console.WriteLine();
+                            break;
+                        case 3:
+                            MatrixWeather.TemperatureOutput(ref temperature);
+                            Console.WriteLine();
+                            break;
+                        case 4:
+                            int[,] array = temperature.Temperature;
+                            Console.WriteLine("Массив температур: ");
+                            for (int i = 0; i < array.GetLength(0); ++i)
+                                for (int j = 0; j < array.GetLength(1); ++j)
+                                    Console.Write($"{array[i, j]} ");
+                            Console.WriteLine();
+                            Console.WriteLine();
+                            break;
+                        case 5:
+                            Console.WriteLine($"Количество дней в месяце: {temperature.DaysInMatrix}");
+                            Console.WriteLine();
+                            break;
+                        case 6:
+                            Console.WriteLine($"Количество дней в месяце с температурой 0 градусов: {temperature.ZeroTempDays}");
+                            Console.WriteLine();
+                            break;
+                        case 7:
+                            Console.WriteLine("Температура скачка за месяц: " + temperature.MaximalDifference());
+                            Console.WriteLine();
+                            break;
+                        case 8:
+                            int dayMaximalDifference;
+                            Console.WriteLine("Температура скачка за месяц: " + temperature.MaximalDifference(out dayMaximalDifference));
+                            Console.WriteLine($"Номер дня: {dayMaximalDifference}");
+                            Console.WriteLine();
+                            break;
+                        default:
+                            throw new Exception("введите номер задачи.")
+                    }
+                } while (ok != 9);
+            }
+            catch (Exception error) {
+                Console.WriteLine("Ошибка: " + error.Message);
+            }
+            //finally {
+            //    Console.WriteLine("Конец программы!");
+            //}
             Console.ReadKey();
         }
     }
