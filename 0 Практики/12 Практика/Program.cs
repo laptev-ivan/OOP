@@ -17,6 +17,14 @@ namespace _12_Практика {
             this.y = y;
             this.z = z;
         }
+        public Point3D(decimal xy) {
+            x = (int)xy;
+            decimal tmp = xy - (int)xy;
+            do {
+                tmp *= 10;
+            } while (tmp % (int)tmp != 0);
+            x = (int)tmp;
+        }
 
         public static Point3D CreatePoint() {
             Point3D point=new Point3D();
@@ -46,26 +54,57 @@ namespace _12_Практика {
             return point;
         }
 
-        public Point3D(decimal xy) {
-            x = (int)xy;
-            decimal tmp = xy - (int)xy;
-            do {
-                tmp *= 10;
-            } while (tmp % (int)tmp != 0);
-            x = (int)tmp;
+        public static Point3D operator +(Point3D obj1, Point3D obj2) {
+            return new Point3D(obj1.x + obj2.y, obj1.y + obj2.y, obj1.z + obj2.z);
+        }
+
+        public static Point3D operator -(Point3D obj1, Point3D obj2) {
+            return new Point3D(obj1.x - obj2.y, obj1.y - obj2.y, obj1.z - obj2.z);
+        }
+
+        public static Point3D operator ++(Point3D obj) {
+            obj.x++;
+            obj.y++;
+            obj.y++;
+            return obj;
+        }
+
+        public static Point3D operator --(Point3D obj) {
+            obj.x--;
+            obj.y--;
+            obj.y--;
+            return obj;
+        }
+
+        public static bool operator <=(Point3D obj1, Point3D obj2) {
+            if (obj1.x <= obj2.x && obj1.y <= obj2.y && obj1.z <= obj2.z)
+                return true;
+            return false;
+        }
+
+        public static bool operator >=(Point3D obj1, Point3D obj2) {
+            if (obj1.x >= obj2.x && obj1.y >= obj2.y && obj1.z >= obj2.z)
+                return true;
+            return false;
+        }
+
+        public static bool operator true(Point3D obj) {
+            if (obj.x >= 0 && obj.y <= 0 && obj.z >= 0)
+                return true;
+            return false;
+        }
+
+        public static bool operator false(Point3D obj) {
+            if (obj.x < 0 && obj.y > 0 && obj.z < 0)
+                return true;
+            return false;
         }
 
         public int SetX {
             get { return x; }
             set {
-                try {
-                    if (value <= 0) throw new Exception(@"координата X не может быть отрицательной.");
-                    else x = value;
-                }
-                catch (Exception error) {
-                    Console.WriteLine("Ошибка: " + error.Message);
-                    return;
-                }
+                if (value <= 0) throw new Exception(@"координата X не может быть отрицательной.");
+                else x = value;
             }
         }
 
@@ -74,14 +113,8 @@ namespace _12_Практика {
             set {
                 if (value >= 0 && value <= 100) y = value;
                 else {
-                    try {
-                        if (value < 0 || value > 100) throw new Exception(@"координата Y не может быть меньше 0 или больше 100");
-                        else y = value;
-                    }
-                    catch(Exception error) {
-                        Console.WriteLine("Ошибка: " + error.Message);
-                        return;
-                    }
+                    if (value < 0 || value > 100) throw new Exception(@"координата Y не может быть меньше 0 или больше 100");
+                    else y = value;
                 }
             }
                 
@@ -90,14 +123,8 @@ namespace _12_Практика {
         public int SetZ {
             get { return z; }
             set {
-                 try {
-                    if (value > x + y) throw new Exception(@"координата Z не может быть больше x+y.");
-                    else z = value;
-                 }
-                 catch(Exception error) {
-                     Console.WriteLine("Ошибка: " + error.Message);
-                     return;
-                 }
+                if (value > x + y) throw new Exception(@"координата Z не может быть больше x+y.");
+                else z = value;
             }
         }
 
