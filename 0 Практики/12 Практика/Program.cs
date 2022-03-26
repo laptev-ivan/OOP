@@ -28,29 +28,39 @@ namespace _12_Практика {
 
         public static Point3D CreatePoint() {
             Point3D point=new Point3D();
-            Console.WriteLine("Ввод даблом x,y (через запятую) - 1 или ввод отдельно x, y, z - 0");
-            sbyte doubleorint = sbyte.Parse(Console.ReadLine());
-            if (doubleorint == 0) {
-                Console.WriteLine("Введите координаты так чтобы хотя бы одна из них была кратна пяти.");
-                Console.Write("Введите координату по OX: ");
-                int x = int.Parse(Console.ReadLine());
-                Console.Write("Введите координату по OY: ");
-                int y = int.Parse(Console.ReadLine());
-                Console.Write("Введите координату по OZ: ");
-                int z = int.Parse(Console.ReadLine());
-                if (x * y * z % 5 == 0) {
-                    point = new Point3D(x, y, z);
+            try {
+                Console.Write("Ввод координат x,y (через точку или запятую) - 1, ввод отдельно x, y, z - 0, конструктор по умолчанию (x=5, y=10, z=15) - любая другая цифра: ");
+                sbyte doubleorint = sbyte.Parse(Console.ReadLine());
+                switch (doubleorint) {
+                    case 0: 
+                        Console.WriteLine("Введите координаты так чтобы хотя бы одна из них была кратна пяти.");
+                        Console.Write("Введите координату по OX: ");
+                        int x = int.Parse(Console.ReadLine());
+                        Console.Write("Введите координату по OY: ");
+                        int y = int.Parse(Console.ReadLine());
+                        Console.Write("Введите координату по OZ: ");
+                        int z = int.Parse(Console.ReadLine());
+                        if (x * y * z % 5 == 0) 
+                            point = new Point3D(x, y, z);
+                        break;
+                    case 1:
+                        Console.WriteLine("Введите через точку координаты (x.y):");
+                        decimal xy = decimal.Parse(Console.ReadLine());
+                        point = new Point3D(xy);
+                        break;
+                    default:
+                        Console.WriteLine("Сработал конструктор по умолчанию (x=5, y=10, z=15).");
+                        Console.WriteLine();
+                        point = new Point3D();
+                        break;
                 }
             }
-            else if (doubleorint == 1) {
-                Console.WriteLine("Введите через точку координаты (x.y):");
-                decimal xy = decimal.Parse(Console.ReadLine());
-                point = new Point3D(xy);
-            }
-            else {
-                Console.WriteLine("Сработал конструктор по умолчанию");
+            catch(Exception error) {
                 point = new Point3D();
-            }
+                Console.WriteLine("Ошибка: " + error.Message);
+                Console.WriteLine("Сработал конструктор по умолчанию (x=5, y=10, z=15).");
+                Console.WriteLine();
+            }    
             return point;
         }
 
@@ -63,9 +73,9 @@ namespace _12_Практика {
         }
 
         public static Point3D operator ++(Point3D obj) {
-            obj.x++;
-            obj.y++;
-            obj.y++;
+            ++obj.x;
+            ++obj.y;
+            ++obj.z;
             return obj;
         }
 
@@ -86,6 +96,14 @@ namespace _12_Практика {
             if (obj1.x >= obj2.x && obj1.y >= obj2.y && obj1.z >= obj2.z)
                 return true;
             return false;
+        }
+
+        public static Point3D operator &(Point3D obj1, Point3D obj2) {
+            return new Point3D(obj1.x & obj2.x, obj1.y & obj2.y, obj1.z & obj2.z);
+        }
+
+        public static Point3D operator |(Point3D obj1, Point3D obj2) {
+            return new Point3D(obj1.x | obj2.x, obj1.y | obj2.y, obj1.z | obj2.z);
         }
 
         public static bool operator true(Point3D obj) {
@@ -112,12 +130,8 @@ namespace _12_Практика {
             get { return y; }
             set {
                 if (value >= 0 && value <= 100) y = value;
-                else {
-                    if (value < 0 || value > 100) throw new Exception(@"координата Y не может быть меньше 0 или больше 100");
-                    else y = value;
-                }
+                else throw new Exception(@"координата Y не может быть меньше 0 или больше 100.");
             }
-                
         }
 
         public int SetZ {
@@ -166,80 +180,78 @@ namespace _12_Практика {
                 ok = true;
             return ok;
         }
+
+        public void PrintXYZ() {
+            Console.WriteLine($"X:{x}, Y:{y}, Z:{z}");
+        }
     }
 
     class Program {
-        static void PrintXYZ(Point3D point) {
-            Console.WriteLine($"X:{point.SetX}, Y:{point.SetY}, Z:{point.SetZ}");
-        }
-
         static void Main(string[] args) {
             Point3D point1 = Point3D.CreatePoint();
-            Console.WriteLine("Введите 0 — не сдвигать");
-            Console.WriteLine("Введите 1 — сдвигать");
-            sbyte ok2 = sbyte.Parse(Console.ReadLine());
-            if (ok2==0) {
-                Console.WriteLine("Введите название оси (x, y, z)");
-                char c = char.Parse(Console.ReadLine());
-                Console.WriteLine("Расстояние");
-                int s = int.Parse(Console.ReadLine());
-                point1.Move(c, s);
-            }
-            PrintXYZ(point1);
-            double radius1 = point1.RadiusVector();
-            Console.WriteLine($"Длина радиус вектора: {radius1:F2}");
+            try {
+                Console.WriteLine("Введите 0 — не сдвигать, 1 — сдвинуть: ");
+                sbyte ok1 = sbyte.Parse(Console.ReadLine());
+                if (ok1 == 1) {
+                    Console.Write("Введите название оси (x, y, z): ");
+                    char c = char.Parse(Console.ReadLine());
+                    Console.Write("Расстояние: ");
+                    int s = int.Parse(Console.ReadLine());
+                    point1.Move(c, s);
+                }
+                point1.PrintXYZ();
+                double radius1 = point1.RadiusVector();
+                Console.WriteLine($"Длина радиус вектора: {radius1:F2}");
 
-            Point3D point2 = Point3D.CreatePoint();
-            PrintXYZ(point2);
-            double radius2 = point2.RadiusVector();
-            Console.WriteLine($"Длина радиус вектора второй точки: {radius2:F2}");
-            Console.WriteLine("Если хотите сложить точку с точкой - 0, с другой точкой - 1 с числом - любая другая цифра");
-            sbyte ok3 = sbyte.Parse(Console.ReadLine());
-            if (ok3 == 0) {
-                point1.AddDots(point2);
-                Console.WriteLine("Сложение двух точек");
-                PrintXYZ(point1);
+                Point3D point2 = Point3D.CreatePoint();
+                point2.PrintXYZ();
+                double radius2 = point2.RadiusVector();
+                Console.WriteLine($"Длина радиус вектора второй точки: {radius2:F2}");
+                Console.Write(
+@"0) Добавить единицу к координатам точки.
+1) Вычесть единицу из координат точки.
+2) Сложить координаты первой и координаты второй точки.
+3) Вычесть координаты первой и координаты второй точки.
+4) Сравнить больше ли координаты первой точки или нет.
+5) Сравнить меньше ли координаты первой точки или нет. 
+6)
+7)
+8) Провека первой точки (true): лежит ли трехмерная точка в четвертой четверти плоскости xy и имеет ли координату z, большую нуля.
+9) Провека первой точки (false): не лежит ли трехмерная точка в четвертой четверти плоскости xy и имеет ли координату z, большую нуля.
+");
+                sbyte ok2 = sbyte.Parse(Console.ReadLine());
+                switch (ok2) {
+                    case 0:
+                        Console.WriteLine("Сложение двух точек.");
+                        Point3D point3 = point1 + point2;
+                        point3.PrintXYZ();
+                        break;
+                    case 1:
+                        Console.WriteLine("Введите координаты точки с которой хотите сложить первую точку");
+                        Console.Write("OX: "); int x = int.Parse(Console.ReadLine());
+                        Console.Write("OY: "); int y = int.Parse(Console.ReadLine());
+                        Console.Write("OZ: "); int z = int.Parse(Console.ReadLine());
+                        point1.AddDots(x, y, z);
+                        point1.PrintXYZ();
+                        break;
+                    default:
+                        Console.WriteLine("Введите число на которое хотите увеличить каждую кооридинату");
+                        int number;
+                        int.TryParse(Console.ReadLine(), out number);
+                        point1.AddDots(number);
+                        point1.PrintXYZ();
+                        break;
+                }
+                if (point1.InOutArea())
+                    Console.WriteLine("Точка находится в области");
+                else
+                    Console.WriteLine("Точка вне области");
             }
-            else if (ok3 == 1) {
-                Console.WriteLine("Введите координаты точки с которой хотите сложить первую точку");
-                int xX, yY, zZ;
-                int.TryParse(Console.ReadLine(), out xX);
-                int.TryParse(Console.ReadLine(), out yY);
-                int.TryParse(Console.ReadLine(), out zZ);
-                try {
-                    point1.SetX = xX;
-                }
-                catch {
-                    Console.WriteLine("Введено некорректное значение, координата OX не поменялась.");
-                }
-                try {
-                    point1.SetY = yY;
-                }
-                catch {
-                    Console.WriteLine("Введено некорректное значение, координата OY не поменялась.");
-                }
-                try {
-                    point1.SetZ = zZ;
-                }
-                catch {
-                    Console.WriteLine("Введено некорректное значение, координата OZ не поменялась.");
-                }
-                point1.AddDots(xX, yY, zZ);
-                PrintXYZ(point1);
+            catch (Exception error) {
+                Console.WriteLine("Ошибка: " + error.Message);
             }
-            else {
-                Console.WriteLine("Введите число на которое хотите увеличить каждую кооридинату");
-                int Number;
-                int.TryParse(Console.ReadLine(), out Number);
-                point1.AddDots(Number);
-                PrintXYZ(point1);
-            }
-            if (point1.InOutArea())
-                Console.WriteLine("Точка находится в области");
-            else
-                Console.WriteLine("Точка вне области");
             Point3D point4 = Point3D.CreatePoint();
-            PrintXYZ(point4);
+            point4.PrintXYZ();
             Console.ReadKey();
         }
     }
