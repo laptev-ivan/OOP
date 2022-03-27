@@ -80,9 +80,9 @@ namespace _12_Практика {
         }
 
         public static Point3D operator --(Point3D obj) {
-            obj.x--;
-            obj.y--;
-            obj.y--;
+            --obj.x;
+            --obj.y;
+            --obj.y;
             return obj;
         }
 
@@ -191,12 +191,15 @@ namespace _12_Практика {
             Point3D point1 = Point3D.CreatePoint();
             try {
                 Console.WriteLine("Введите 0 — не сдвигать, 1 — сдвинуть: ");
-                sbyte ok1 = sbyte.Parse(Console.ReadLine());
+                sbyte ok1;
+                sbyte.TryParse(Console.ReadLine(), out ok1);
                 if (ok1 == 1) {
                     Console.Write("Введите название оси (x, y, z): ");
-                    char c = char.Parse(Console.ReadLine());
+                    char c;
+                    char.TryParse(Console.ReadLine(), out c);
                     Console.Write("Расстояние: ");
-                    int s = int.Parse(Console.ReadLine());
+                    int s;
+                    int.TryParse(Console.ReadLine(), out s);
                     point1.Move(c, s);
                 }
                 point1.PrintXYZ();
@@ -205,8 +208,7 @@ namespace _12_Практика {
 
                 Point3D point2 = Point3D.CreatePoint();
                 point2.PrintXYZ();
-                double radius2 = point2.RadiusVector();
-                Console.WriteLine($"Длина радиус вектора второй точки: {radius2:F2}");
+
                 Console.Write(
 @"0) Добавить единицу к координатам точки.
 1) Вычесть единицу из координат точки.
@@ -214,38 +216,92 @@ namespace _12_Практика {
 3) Вычесть координаты первой и координаты второй точки.
 4) Сравнить больше ли координаты первой точки или нет.
 5) Сравнить меньше ли координаты первой точки или нет. 
-6)
-7)
-8) Провека первой точки (true): лежит ли трехмерная точка в четвертой четверти плоскости xy и имеет ли координату z, большую нуля.
-9) Провека первой точки (false): не лежит ли трехмерная точка в четвертой четверти плоскости xy и имеет ли координату z, большую нуля.
+6) Провека первой точки: лежит ли трехмерная точка в четвертой четверти плоскости xy и имеет ли координату z, большую нуля.
+7) Добавить число к координатам точки.
+8) Добавить новую точку к первой точке.
+9) Находится ли точка в области.
+10) Длина радиус-вектора второй точки.
+Закрыть программу.
 ");
-                sbyte ok2 = sbyte.Parse(Console.ReadLine());
-                switch (ok2) {
-                    case 0:
-                        Console.WriteLine("Сложение двух точек.");
-                        Point3D point3 = point1 + point2;
-                        point3.PrintXYZ();
-                        break;
-                    case 1:
-                        Console.WriteLine("Введите координаты точки с которой хотите сложить первую точку");
-                        Console.Write("OX: "); int x = int.Parse(Console.ReadLine());
-                        Console.Write("OY: "); int y = int.Parse(Console.ReadLine());
-                        Console.Write("OZ: "); int z = int.Parse(Console.ReadLine());
-                        point1.AddDots(x, y, z);
-                        point1.PrintXYZ();
-                        break;
-                    default:
-                        Console.WriteLine("Введите число на которое хотите увеличить каждую кооридинату");
-                        int number;
-                        int.TryParse(Console.ReadLine(), out number);
-                        point1.AddDots(number);
-                        point1.PrintXYZ();
-                        break;
-                }
-                if (point1.InOutArea())
-                    Console.WriteLine("Точка находится в области");
-                else
-                    Console.WriteLine("Точка вне области");
+                sbyte ok2;
+                do {
+                    sbyte.TryParse(Console.ReadLine(), out ok2);
+                    Point3D point3;
+                    switch (ok2) {
+                        case 0:
+                            Console.WriteLine("+1 ко всем координатам точки.");
+                            ++point1;
+                            point1.PrintXYZ();
+                            break;
+                        case 1:
+                            Console.WriteLine("-1 ко всем координатам точки.");
+                            --point1;
+                            point1.PrintXYZ();
+                            break;
+                        case 2:
+                            Console.WriteLine("Сложение двух точек.");
+                            point3 = point1 + point2;
+                            point3.PrintXYZ();
+                            break;
+                        case 3:
+                            Console.WriteLine("Вычитание двух точек.");
+                            point3 = point1 - point2;
+                            point3.PrintXYZ();
+                            break;
+                        case 4:
+                            Console.WriteLine("point1 >? point2");
+                            if (point1 >= point2)
+                                Console.WriteLine("Да, больше или равен.");
+                            else
+                                Console.WriteLine("Нет, меньше.");
+                            break;
+                        case 5:
+                            Console.WriteLine("point1 <? point2");
+                            if (point1 <= point2)
+                                Console.WriteLine("Да, меньше или равен.");
+                            else
+                                Console.WriteLine("Нет, больше.");
+                            break;
+                        case 6:
+                            if (point1)
+                                Console.WriteLine("Да, лежит.");
+                            else
+                                Console.WriteLine("Нет, не лежит.");
+                            break;
+                        case 7:
+                            Console.WriteLine("Введите число на которое хотите увеличить каждую кооридинату");
+                            int number;
+                            int.TryParse(Console.ReadLine(), out number);
+                            point1.AddDots(number);
+                            point1.PrintXYZ();
+                            break;
+                        case 8:
+                            Console.WriteLine("Введите координаты точки с которой хотите сложить первую точку");
+                            int x, y, z;
+                            Console.Write("OX: ");
+                            int.TryParse(Console.ReadLine(), out x);
+                            Console.Write("OY: ");
+                            int.TryParse(Console.ReadLine(), out y);
+                            Console.Write("OZ: ");
+                            int.TryParse(Console.ReadLine(), out z);
+                            point1.AddDots(x, y, z);
+                            point1.PrintXYZ();
+                            break;
+                        case 9:
+                            if (point1.InOutArea())
+                                Console.WriteLine("Точка находится в области.");
+                            else
+                                Console.WriteLine("Точка вне области.");
+                            break;
+                        case 10:
+                            double radius2 = point2.RadiusVector();
+                            Console.WriteLine($"Длина радиус вектора второй точки: {radius2:F2}");
+                            break;
+                        default:
+                            Console.WriteLine("Введите номер");
+                            break;
+                    }
+                } while (ok2 != 10);
             }
             catch (Exception error) {
                 Console.WriteLine("Ошибка: " + error.Message);
