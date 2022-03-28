@@ -65,11 +65,19 @@ namespace _12_Практика {
         }
 
         public static Point3D operator +(Point3D obj1, Point3D obj2) {
-            return new Point3D(obj1.x + obj2.y, obj1.y + obj2.y, obj1.z + obj2.z);
+            Point3D point = new Point3D();
+            point.SetX = obj1.x + obj2.x;
+            point.SetY = obj1.y + obj2.y;
+            point.SetZ = obj1.z + obj2.z;
+            return point;
         }
 
         public static Point3D operator -(Point3D obj1, Point3D obj2) {
-            return new Point3D(obj1.x - obj2.y, obj1.y - obj2.y, obj1.z - obj2.z);
+            Point3D point = new Point3D();
+            point.SetX = obj1.x - obj2.x;
+            point.SetY = obj1.y - obj2.y;
+            point.SetZ = obj1.z - obj2.z;
+            return point;
         }
 
         public static Point3D operator ++(Point3D obj) {
@@ -87,35 +95,33 @@ namespace _12_Практика {
         }
 
         public static bool operator <=(Point3D obj1, Point3D obj2) {
-            if (obj1.x <= obj2.x && obj1.y <= obj2.y && obj1.z <= obj2.z)
-                return true;
-            return false;
+            return (obj1.x <= obj2.x && obj1.y <= obj2.y && obj1.z <= obj2.z);
         }
 
         public static bool operator >=(Point3D obj1, Point3D obj2) {
-            if (obj1.x >= obj2.x && obj1.y >= obj2.y && obj1.z >= obj2.z)
-                return true;
+            return (obj1.x >= obj2.x && obj1.y >= obj2.y && obj1.z >= obj2.z);
+
+        }
+
+        public static bool operator &(Point3D obj1, Point3D obj2) {
+            if (obj1) 
+                if (obj2) 
+                    return true;
             return false;
         }
 
-        public static Point3D operator &(Point3D obj1, Point3D obj2) {
-            return new Point3D(obj1.x & obj2.x, obj1.y & obj2.y, obj1.z & obj2.z);
-        }
-
-        public static Point3D operator |(Point3D obj1, Point3D obj2) {
-            return new Point3D(obj1.x | obj2.x, obj1.y | obj2.y, obj1.z | obj2.z);
+        public static bool operator |(Point3D obj1, Point3D obj2) {
+            if (obj1) return true;
+            else if (obj2) return true;
+            return false;
         }
 
         public static bool operator true(Point3D obj) {
-            if (obj.x >= 0 && obj.y <= 0 && obj.z >= 0)
-                return true;
-            return false;
+            return (obj.x >= 0 && obj.y <= 0 && obj.z >= 0);
         }
 
         public static bool operator false(Point3D obj) {
-            if (obj.x < 0 && obj.y > 0 && obj.z < 0)
-                return true;
-            return false;
+            return (obj.x < 0 && obj.y > 0 && obj.z < 0);
         }
 
         public int SetX {
@@ -208,7 +214,7 @@ namespace _12_Практика {
 
                 Point3D point2 = Point3D.CreatePoint();
                 point2.PrintXYZ();
-
+                Console.WriteLine();
                 Console.Write(
 @"0) Добавить единицу к координатам точки.
 1) Вычесть единицу из координат точки.
@@ -221,7 +227,9 @@ namespace _12_Практика {
 8) Добавить новую точку к первой точке.
 9) Находится ли точка в области.
 10) Длина радиус-вектора второй точки.
-Закрыть программу.
+11) Лежат ли обе трехмерные точки в четвертой четверти плоскости xy и имеет ли координату z, большую нуля.
+12) Лежит ли хотя бы одна трехмерная точка в четвертой четверти плоскости xy и имеет ли координату z, большую нуля.
+13) Закрыть программу.
 ");
                 sbyte ok2;
                 do {
@@ -232,21 +240,25 @@ namespace _12_Практика {
                             Console.WriteLine("+1 ко всем координатам точки.");
                             ++point1;
                             point1.PrintXYZ();
+                            Console.WriteLine();
                             break;
                         case 1:
                             Console.WriteLine("-1 ко всем координатам точки.");
                             --point1;
                             point1.PrintXYZ();
+                            Console.WriteLine();
                             break;
                         case 2:
                             Console.WriteLine("Сложение двух точек.");
                             point3 = point1 + point2;
                             point3.PrintXYZ();
+                            Console.WriteLine();
                             break;
                         case 3:
                             Console.WriteLine("Вычитание двух точек.");
                             point3 = point1 - point2;
                             point3.PrintXYZ();
+                            Console.WriteLine();
                             break;
                         case 4:
                             Console.WriteLine("point1 >? point2");
@@ -254,6 +266,7 @@ namespace _12_Практика {
                                 Console.WriteLine("Да, больше или равен.");
                             else
                                 Console.WriteLine("Нет, меньше.");
+                            Console.WriteLine();
                             break;
                         case 5:
                             Console.WriteLine("point1 <? point2");
@@ -261,12 +274,14 @@ namespace _12_Практика {
                                 Console.WriteLine("Да, меньше или равен.");
                             else
                                 Console.WriteLine("Нет, больше.");
+                            Console.WriteLine();
                             break;
                         case 6:
                             if (point1)
                                 Console.WriteLine("Да, лежит.");
                             else
                                 Console.WriteLine("Нет, не лежит.");
+                            Console.WriteLine();
                             break;
                         case 7:
                             Console.WriteLine("Введите число на которое хотите увеличить каждую кооридинату");
@@ -274,6 +289,7 @@ namespace _12_Практика {
                             int.TryParse(Console.ReadLine(), out number);
                             point1.AddDots(number);
                             point1.PrintXYZ();
+                            Console.WriteLine();
                             break;
                         case 8:
                             Console.WriteLine("Введите координаты точки с которой хотите сложить первую точку");
@@ -286,28 +302,37 @@ namespace _12_Практика {
                             int.TryParse(Console.ReadLine(), out z);
                             point1.AddDots(x, y, z);
                             point1.PrintXYZ();
+                            Console.WriteLine();
                             break;
                         case 9:
                             if (point1.InOutArea())
                                 Console.WriteLine("Точка находится в области.");
                             else
                                 Console.WriteLine("Точка вне области.");
+                            Console.WriteLine();
                             break;
                         case 10:
                             double radius2 = point2.RadiusVector();
                             Console.WriteLine($"Длина радиус вектора второй точки: {radius2:F2}");
+                            Console.WriteLine();
+                            break;
+                        case 11:
+                            Console.WriteLine(point1 & point2);
+                            Console.WriteLine();
+                            break;
+                        case 12:
+                            Console.WriteLine(point1 | point2);
+                            Console.WriteLine();
                             break;
                         default:
                             Console.WriteLine("Введите номер");
                             break;
                     }
-                } while (ok2 != 10);
+                } while (ok2 != 13);
             }
             catch (Exception error) {
                 Console.WriteLine("Ошибка: " + error.Message);
             }
-            Point3D point4 = Point3D.CreatePoint();
-            point4.PrintXYZ();
             Console.ReadKey();
         }
     }

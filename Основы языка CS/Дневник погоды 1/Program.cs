@@ -244,12 +244,17 @@ namespace Дневник_погоды_1 {
                 return -1000;
             }
         }
+
+        public static bool operator >() {
+        
+        }
     }
 
     class Program
     {
         static void Main(string[] args) {
             MatrixWeather temperature = new MatrixWeather();
+            MatrixWeather temperature1 = new MatrixWeather();
             MatrixWeather.TemperatureOutput(ref temperature);
             Console.WriteLine("\n");
             for(Months i=Months.Январь; i<=Months.Декабрь; ++i) 
@@ -258,7 +263,7 @@ namespace Дневник_погоды_1 {
             for(DaysOfWeek i = DaysOfWeek.Пн; i<=DaysOfWeek.Вс; ++i)
                 Console.WriteLine($"{(int)i} соответсвует {i}");
             Console.WriteLine("\n");
-            byte ok =1;
+            sbyte ok =1;
             try {
                 do {
                     Console.ForegroundColor = ConsoleColor.Blue;
@@ -273,22 +278,38 @@ namespace Дневник_погоды_1 {
 6) Вывести на экран количество дней в месяце с температурой 0 градусов
 7) Вывести на экран максимальный скачок температуры за месяц
 8) Вывести на экран максимальный скачок температуры за месяц с номером дня и температурой до скачка
-9) Закрыть программу
+9)
+-1) Закрыть программу
 ");
                     Console.ResetColor();
                     Console.Write("Выберете действие: ");
-                    ok = byte.Parse(Console.ReadLine());
+                    ok = sbyte.Parse(Console.ReadLine());
                     switch (ok) {
                         case 0:
-                            Console.Write("Введите номер дня недели (см. выше): ");
-                            int day;
-                            int.TryParse(Console.ReadLine(), out day);
-                            Console.Write("Введите номер месяца (см. выше): ");
-                            int month = int.Parse(Console.ReadLine());
-                            if (day <= 6 && day >= 0 && month <= 12 && month >= 1)
-                                temperature = new MatrixWeather(month, day);
-                            else throw new Exception(@"неправильный месяц или день.");
-                            Console.WriteLine();
+                            byte ok1;
+                            Console.Write("Выберете дневник, введите 1 или 2: ");
+                            byte.TryParse(Console.ReadLine(), out ok1);
+                            if (ok1 == 1) {
+                                Console.Write("Введите номер дня недели (см. выше): ");
+                                int day;
+                                int.TryParse(Console.ReadLine(), out day);
+                                Console.Write("Введите номер месяца (см. выше): ");
+                                int month = int.Parse(Console.ReadLine());
+                                if (day <= 6 && day >= 0 && month <= 12 && month >= 1)
+                                    temperature = new MatrixWeather(month, day);
+                                else throw new Exception(@"неправильный месяц или день.");
+                            }
+                            else if (ok1 == 2) {
+                                Console.Write("Введите номер дня недели (см. выше): ");
+                                int day;
+                                int.TryParse(Console.ReadLine(), out day);
+                                Console.Write("Введите номер месяца (см. выше): ");
+                                int month = int.Parse(Console.ReadLine());
+                                if (day <= 6 && day >= 0 && month <= 12 && month >= 1)
+                                    temperature = new MatrixWeather(month, day);
+                                else throw new Exception(@"неправильный месяц или день.");
+                            }
+                                Console.WriteLine();
                             break;
                         case 1:
                             Console.WriteLine($"День недели первого числа месяца: {temperature.Day} – {(DaysOfWeek)temperature.Day}");
@@ -336,15 +357,14 @@ namespace Дневник_погоды_1 {
                             Console.WriteLine($"Номер дня: {dayMaximalDifference}");
                             Console.WriteLine();
                             break;
+                        case 9:
+
                     }
-                } while (ok != 9);
+                } while (ok != -1);
             }
             catch (Exception error) {
                 Console.WriteLine("Ошибка: " + error.Message);
             }
-            //finally {
-            //    Console.WriteLine("Конец программы!");
-            //}
             Console.ReadKey();
         }
     }
