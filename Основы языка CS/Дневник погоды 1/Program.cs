@@ -92,6 +92,37 @@ namespace Дневник_погоды_1 {
                 }
         }
 
+        public static bool operator >(MatrixWeather obj1, MatrixWeather obj2) {
+            return obj1.month > obj2.month;
+        }
+
+        public static bool operator <(MatrixWeather obj1, MatrixWeather obj2) {
+            return obj1.month < obj2.month;
+        }
+
+        public static MatrixWeather operator ++(MatrixWeather obj) {
+            ++obj.day;
+            return obj;
+        }
+        public static MatrixWeather operator --(MatrixWeather obj) {
+            --obj.day;
+            return obj;
+        }
+
+        public static bool operator true(MatrixWeather obj) {
+            foreach (int temp in obj.temperature)
+                if (temp < 0)
+                    return false;
+            return true;
+        }
+
+        public static bool operator false(MatrixWeather obj) {
+            foreach (int temp in obj.temperature)
+                if (temp < 0)
+                    return true;
+            return false;
+        }
+
         private static int Generator(int month) {
             return rnd.Next(minTemp[month-1], maxTemp[month-1]);
         }
@@ -139,24 +170,26 @@ namespace Дневник_погоды_1 {
                 Console.ResetColor();
             }
             Console.WriteLine();
-            int days = 1, sum = 0;
+            int days = 1;
             for (int i = 0; i < array.GetLength(0); ++i) {
                 for (int j = 0; j < array.GetLength(1); ++j) {
                     if (array[i, j] == -1000) Console.Write("\t");
                     else {
+                        if (days > daysMonth[(int)temperature.Month-1])
+                            break;
                         Console.ForegroundColor = ConsoleColor.Red;
                         if (days < 10) Console.Write($"0{days} ");
                         else Console.Write($"{days} ");
                         Console.ResetColor();
                         Console.Write($"{array[i, j]}\t");
-                        days++;
+                        ++days;
                     }
                 }
                 Console.WriteLine();
             }
         }
 
-        private void ShiftLeft(ref int value) {
+        private void ShiftLeft(int value = 1) {
             int k = (int)day - value;
             int[] tmp = new int[temperature.GetLength(0) * temperature.GetLength(1)];
             int count = 0;
@@ -171,7 +204,7 @@ namespace Дневник_погоды_1 {
                     tmp[i - 1] = tmp[i];
                 --k;
             }
-            int cnt = 0, len = tmp.Length - 1;
+            int cnt = 0, len = tmp.Length;
             while (tmp[len - 1] == NoData) {
                 ++cnt;
                 --len;
@@ -179,13 +212,18 @@ namespace Дневник_погоды_1 {
             int strings = temperature.GetLength(0);
             if (cnt >= 7)
                 --strings;
+            cnt = 0;
             for (int i = 0; i < strings; ++i)
-                for (int j = 0; j < temperature.GetLength(1); ++j)
+                for (int j = 0; j < temperature.GetLength(1); ++j) {
+                    if (tmp[7 * i + j] != NoData)
+                        ++cnt;
+                    if (cnt > daysMonth[(int)month-1])
+                        break;
                     temperature[i, j] = tmp[7 * i + j];
-
+                }
         }
 
-        private void ShiftRight(ref int value) {
+        private void ShiftRight(int value = 1) {
             int k = value - (int)day;
             int[] tmp = new int[temperature.GetLength(0) * temperature.GetLength(1)];
             int count = 0;
@@ -196,7 +234,7 @@ namespace Дневник_погоды_1 {
                 }
             }
             while (k > 0) {
-                for (int i = 1; i < tmp.Length - 1; ++i)
+                for (int i = 1; i < tmp.Length-1; ++i)
                     tmp[tmp.Length - i] = tmp[tmp.Length - i - 1];
                 --k;
             }
@@ -221,10 +259,10 @@ namespace Дневник_погоды_1 {
                 }
                 else {
                     if (value < (int)day) {
-                        ShiftLeft(ref value);
+                        ShiftLeft(value);
                     }
                     else {
-                        ShiftRight(ref value);
+                        ShiftRight(value);
                     }
                     day = (DaysOfWeek)value;
                 }
