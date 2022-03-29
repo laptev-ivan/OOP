@@ -101,26 +101,29 @@ namespace Дневник_погоды_1 {
         }
 
         public static MatrixWeather operator ++(MatrixWeather obj) {
-            ++obj.day;
+            ++obj.Day;
             return obj;
         }
         public static MatrixWeather operator --(MatrixWeather obj) {
-            --obj.day;
+            --obj.Day;
             return obj;
         }
 
         public static bool operator true(MatrixWeather obj) {
             foreach (int temp in obj.temperature)
-                if (temp < 0)
+                if (temp < 0&&temp!=NoData)
                     return false;
             return true;
         }
 
         public static bool operator false(MatrixWeather obj) {
+            bool ok = false;
             foreach (int temp in obj.temperature)
-                if (temp < 0)
-                    return true;
-            return false;
+                if (temp < 0 &&temp!=NoData) {
+                    ok = true;
+                    break;
+                }
+            return ok;
         }
 
         private static int Generator(int month) {
@@ -223,7 +226,7 @@ namespace Дневник_погоды_1 {
                 }
         }
 
-        private void ShiftRight(int value = 1) {
+        private void ShiftRight(int value ) {
             int k = value - (int)day;
             int[] tmp = new int[temperature.GetLength(0) * temperature.GetLength(1)];
             int count = 0;
@@ -302,9 +305,9 @@ namespace Дневник_погоды_1 {
     class Program
     {
         static void Main(string[] args) {
-            MatrixWeather temperature = new MatrixWeather();
             MatrixWeather temperature1 = new MatrixWeather();
-            MatrixWeather.TemperatureOutput(ref temperature);
+            MatrixWeather temperature2 = new MatrixWeather();
+            MatrixWeather.TemperatureOutput(ref temperature1);
             Console.WriteLine("\n");
             for(Months i=Months.Январь; i<=Months.Декабрь; ++i) 
                 Console.WriteLine($"{(int)i} соответсвует месяц {i}");
@@ -327,7 +330,11 @@ namespace Дневник_погоды_1 {
 6) Вывести на экран количество дней в месяце с температурой 0 градусов
 7) Вывести на экран максимальный скачок температуры за месяц
 8) Вывести на экран максимальный скачок температуры за месяц с номером дня и температурой до скачка
-9) Индексатор (изменить или вывести температуру по дню и недели).
+9) Индексатор (изменить или вывести температуру по дню и недели)
+10) Больший дневник ('>', '<')
+11) Сдвиг вправо на один ('++')
+12) Сдвиг влево на один ('--')
+13) Опускалась ли температура хотя бы один раз за месяц ('true', 'false')
 -1) Закрыть программу
 ");
                     Console.ResetColor();
@@ -345,7 +352,7 @@ namespace Дневник_погоды_1 {
                                 Console.Write("Введите номер месяца (см. выше): ");
                                 int month = int.Parse(Console.ReadLine());
                                 if (day <= 6 && day >= 0 && month <= 12 && month >= 1)
-                                    temperature = new MatrixWeather(month, day);
+                                    temperature1 = new MatrixWeather(month, day);
                                 else throw new Exception(@"неправильный месяц или день.");
                             }
                             else if (ok1 == 2) {
@@ -355,7 +362,7 @@ namespace Дневник_погоды_1 {
                                 Console.Write("Введите номер месяца (см. выше): ");
                                 int month = int.Parse(Console.ReadLine());
                                 if (day <= 6 && day >= 0 && month <= 12 && month >= 1)
-                                    temperature1 = new MatrixWeather(month, day);
+                                    temperature2 = new MatrixWeather(month, day);
                                 else throw new Exception(@"неправильный месяц или день.");
                             }
                             Console.WriteLine();
@@ -363,26 +370,16 @@ namespace Дневник_погоды_1 {
                         case 1:
                             Console.Write("Выберете дневник, введите 1 или 2: ");
                             byte.TryParse(Console.ReadLine(), out ok1);
-                            if (ok1 == 1) 
-                                Console.WriteLine($"День недели первого числа месяца: {temperature.Day} – {(DaysOfWeek)temperature.Day}");
-                            else if (ok == 2) 
+                            if (ok1 == 1)
                                 Console.WriteLine($"День недели первого числа месяца: {temperature1.Day} – {(DaysOfWeek)temperature1.Day}");
+                            else if (ok == 2)
+                                Console.WriteLine($"День недели первого числа месяца: {temperature2.Day} – {(DaysOfWeek)temperature2.Day}");
                             Console.WriteLine();
                             break;
                         case 2:
                             Console.Write("Выберете дневник, введите 1 или 2: ");
                             byte.TryParse(Console.ReadLine(), out ok1);
                             if (ok1 == 1) {
-                                Console.Write("Введите день недели первого числа месяца: ");
-                                try {
-                                    temperature.Day = int.Parse(Console.ReadLine());
-                                    Console.WriteLine("День недели изменен!");
-                                }
-                                catch (Exception error) {
-                                    Console.WriteLine("Ошибка: " + error.Message);
-                                }
-                            }
-                            else if(ok1 == 2) {
                                 Console.Write("Введите день недели первого числа месяца: ");
                                 try {
                                     temperature1.Day = int.Parse(Console.ReadLine());
@@ -392,36 +389,83 @@ namespace Дневник_погоды_1 {
                                     Console.WriteLine("Ошибка: " + error.Message);
                                 }
                             }
+                            else if (ok1 == 2) {
+                                Console.Write("Введите день недели первого числа месяца: ");
+                                try {
+                                    temperature2.Day = int.Parse(Console.ReadLine());
+                                    Console.WriteLine("День недели изменен!");
+                                }
+                                catch (Exception error) {
+                                    Console.WriteLine("Ошибка: " + error.Message);
+                                }
+                            }
                             Console.WriteLine();
                             break;
                         case 3:
-                            MatrixWeather.TemperatureOutput(ref temperature);
+                            Console.Write("Выберете дневник, введите 1 или 2: ");
+                            byte.TryParse(Console.ReadLine(), out ok1);
+                            if (ok1 == 1)
+                                MatrixWeather.TemperatureOutput(ref temperature1);
+                            else if (ok1 == 2)
+                                MatrixWeather.TemperatureOutput(ref temperature2);
                             Console.WriteLine();
                             break;
                         case 4:
-                            int[,] array = temperature.Temperature;
-                            Console.WriteLine("Массив температур: ");
-                            foreach(int elem in array)
+                            Console.Write("Выберете дневник, введите 1 или 2: ");
+                            byte.TryParse(Console.ReadLine(), out ok1);
+                            if (ok1 == 1) {
+                                int[,] array = temperature1.Temperature;
+                                Console.WriteLine("Массив температур: ");
+                                foreach (int elem in array)
                                     Console.Write($"{elem} ");
-                            Console.WriteLine();
+                            }
+                            else if (ok1 == 2) {
+                                int[,] array = temperature2.Temperature;
+                                Console.WriteLine("Массив температур: ");
+                                foreach (int elem in array)
+                                    Console.Write($"{elem} ");
+                            }
                             Console.WriteLine();
                             break;
                         case 5:
-                            Console.WriteLine($"Количество дней в месяце: {temperature.DaysInMatrix}");
+                            Console.Write("Выберете дневник, введите 1 или 2: ");
+                            byte.TryParse(Console.ReadLine(), out ok1);
+                            if (ok1 == 1)
+                                Console.WriteLine($"Количество дней в месяце: {temperature1.DaysInMatrix}");
+                            else if (ok1 == 2)
+                                Console.WriteLine($"Количество дней в месяце: {temperature2.DaysInMatrix}");
                             Console.WriteLine();
                             break;
                         case 6:
-                            Console.WriteLine($"Количество дней в месяце с температурой 0 градусов: {temperature.ZeroTempDays}");
+                            Console.Write("Выберете дневник, введите 1 или 2: ");
+                            byte.TryParse(Console.ReadLine(), out ok1);
+                            if (ok1 == 1)
+                                Console.WriteLine($"Количество дней в месяце с температурой 0 градусов: {temperature1.ZeroTempDays}");
+                            else if (ok1 == 2)
+                                Console.WriteLine($"Количество дней в месяце с температурой 0 градусов: {temperature2.ZeroTempDays}");
                             Console.WriteLine();
                             break;
                         case 7:
-                            Console.WriteLine("Температура скачка за месяц: " + temperature.MaximalDifference());
+                            Console.Write("Выберете дневник, введите 1 или 2: ");
+                            byte.TryParse(Console.ReadLine(), out ok1);
+                            if (ok1 == 1)
+                                Console.WriteLine("Температура скачка за месяц: " + temperature1.MaximalDifference());
+                            else if (ok1 == 2)
+                                Console.WriteLine("Температура скачка за месяц: " + temperature2.MaximalDifference());
                             Console.WriteLine();
                             break;
                         case 8:
+                            Console.Write("Выберете дневник, введите 1 или 2: ");
+                            byte.TryParse(Console.ReadLine(), out ok1);
                             int dayMaximalDifference;
-                            Console.WriteLine("Температура скачка за месяц: " + temperature.MaximalDifference(out dayMaximalDifference));
-                            Console.WriteLine($"Номер дня: {dayMaximalDifference}");
+                            if (ok1 == 1) {
+                                Console.WriteLine("Температура скачка за месяц: " + temperature1.MaximalDifference(out dayMaximalDifference));
+                                Console.WriteLine($"Номер дня: {dayMaximalDifference}");
+                            }
+                            else if (ok1 == 2) {
+                                Console.WriteLine("Температура скачка за месяц: " + temperature2.MaximalDifference(out dayMaximalDifference));
+                                Console.WriteLine($"Номер дня: {dayMaximalDifference}");
+                            }
                             Console.WriteLine();
                             break;
                         case 9:
@@ -440,10 +484,10 @@ namespace Дневник_погоды_1 {
                                     int temp;
                                     Console.Write("Введите значение температуры: ");
                                     int.TryParse(Console.ReadLine(), out temp);
-                                    temperature[day-1, week - 1] = temp;
+                                    temperature1[day - 1, week - 1] = temp;
                                 }
-                                else if(ok2==2) {
-                                    Console.WriteLine($"Вывод температуры (день-{(DaysOfWeek)day}, номер недели-{week}): {temperature[day-1, week-1]}."); 
+                                else if (ok2 == 2) {
+                                    Console.WriteLine($"Вывод температуры (день-{(DaysOfWeek)day}, номер недели-{week}): {temperature1[day - 1, week - 1]}.");
                                 }
                             }
                             else if (ok1 == 2) {
@@ -459,15 +503,58 @@ namespace Дневник_погоды_1 {
                                     int temp;
                                     Console.Write("Введите значение температуры: ");
                                     int.TryParse(Console.ReadLine(), out temp);
-                                    temperature1[day-1, week - 1] = temp;
+                                    temperature2[day - 1, week - 1] = temp;
                                 }
                                 else if (ok2 == 2) {
-                                    Console.WriteLine($"Вывод температуры (день-{(DaysOfWeek)day}, номер недели-{week}): {temperature1[day-1, week - 1]}.");
+                                    Console.WriteLine($"Вывод температуры (день-{(DaysOfWeek)day}, номер недели-{week}): {temperature2[day - 1, week - 1]}.");
                                 }
                             }
                             Console.WriteLine();
                             break;
-
+                        case 10:
+                            if (temperature1 > temperature2)
+                                Console.WriteLine($"Первый дневник с месяцем - {temperature1.Month} > второго дневника с месяцем - {temperature2.Month}");
+                            else
+                                Console.WriteLine($"Второй дневник с месяцем - {temperature2.Month} > первого дневника с месяцем {temperature1.Month}");
+                            Console.WriteLine();
+                            break;
+                        case 11:
+                            Console.Write("Выберете дневник, введите 1 или 2: ");
+                            byte.TryParse(Console.ReadLine(), out ok1);
+                            if (ok1 == 1)
+                                ++temperature1;
+                            else if (ok1 == 2)
+                                ++temperature2;
+                            Console.WriteLine("День недели изменен!");
+                            Console.WriteLine();
+                            break;
+                        case 12:
+                            Console.Write("Выберете дневник, введите 1 или 2: ");
+                            byte.TryParse(Console.ReadLine(), out ok1);
+                            if (ok1 == 1)
+                                --temperature1;
+                            else if (ok1 == 2)
+                                --temperature2;
+                            Console.WriteLine("День недели изменен!");
+                            Console.WriteLine();
+                            break;
+                        case 13:
+                            Console.Write("Выберете дневник, введите 1 или 2: ");
+                            byte.TryParse(Console.ReadLine(), out ok1);
+                            if (ok1 == 1) {
+                                if (temperature1)
+                                    Console.WriteLine("Температура не опускалась ниже 0 ни разу за месяц.");
+                                else
+                                    Console.WriteLine("Температура опускалась ниже 0 хотя бы один раз за месяц.");
+                            }
+                            else if (ok1 == 2) {
+                                if (temperature2)
+                                    Console.WriteLine("Температура не опускалась ниже 0 ни разу за месяц.");
+                                else
+                                    Console.WriteLine("Температура опускалась ниже 0 хотя бы один раз за месяц.");
+                            }
+                            Console.WriteLine();
+                            break;
                     }
                 } while (ok != -1);
             }
