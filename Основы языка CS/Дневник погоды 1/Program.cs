@@ -53,9 +53,9 @@ namespace Дневник_погоды_1 {
         public MatrixWeather() { 
             month = Months.Август;
             day = DaysOfWeek.Пт;
-            if(7%(int) day>=1)
-                temperature = new int[(int)Math.Ceiling(daysMonth[(int)month - 1] / 7d)+1, 7];
-            else 
+            if (7 % (int)day >= 1)
+                temperature = new int[(int)Math.Ceiling(daysMonth[(int)month - 1] / 7d) + 1, 7];
+            else
                 temperature = new int[(int)Math.Ceiling(daysMonth[(int)month - 1] / 7d), 7];
             int days = daysMonth[(int)month - 1]+(int)day-1;
             for (int i = 0; i < temperature.GetLength(0); ++i) 
@@ -72,7 +72,7 @@ namespace Дневник_погоды_1 {
         }
 
         public MatrixWeather(int month, int day) {
-            this.month =(Months)month;
+            this.month = (Months)month;
             this.day = (DaysOfWeek)day;
             if (7 % (int)day >= 1)
                 temperature = new int[(int)Math.Ceiling(daysMonth[(int)month - 1] / 7d) + 1, 7];
@@ -85,6 +85,27 @@ namespace Дневник_погоды_1 {
                         if (j < day && i == 0) temperature[i, j] = NoData;
                         else
                             temperature[i, j] = Generator(month);
+                        --days;
+                    }
+                    else
+                        temperature[i, j] = NoData;
+                }
+        }
+
+        public MatrixWeather(int month, int day, int ok) {
+            this.month = (Months)month;
+            this.day = (DaysOfWeek)day;
+            if (7 % (int)day >= 1)
+                temperature = new int[(int)Math.Ceiling(daysMonth[(int)month - 1] / 7d) + 1, 7];
+            else
+                temperature = new int[(int)Math.Ceiling(daysMonth[(int)month - 1] / 7d), 7];
+            int days = daysMonth[month - 1] + day - 1;
+            for (int i = 0; i < temperature.GetLength(0); ++i)
+                for (int j = 0; j < temperature.GetLength(1); ++j) {
+                    if (days >= 0) {
+                        if (j < day && i == 0) temperature[i, j] = NoData;
+                        else
+                            temperature[i, j] = int.Parse(Console.ReadLine());
                         --days;
                     }
                     else
@@ -124,6 +145,12 @@ namespace Дневник_погоды_1 {
                     break;
                 }
             return ok;
+        }
+
+        public static bool operator &(MatrixWeather obj1, MatrixWeather obj2) {
+            if (obj1.Temperature == obj2.Temperature)
+                return true;
+            return false;
         }
 
         private static int Generator(int month) {
@@ -335,6 +362,7 @@ namespace Дневник_погоды_1 {
 11) Сдвиг вправо на один ('++')
 12) Сдвиг влево на один ('--')
 13) Опускалась ли температура хотя бы один раз за месяц ('true', 'false')
+14) Попарно сравнить элементы матриц температур ('&')
 -1) Закрыть программу
 ");
                     Console.ResetColor();
@@ -552,6 +580,29 @@ namespace Дневник_погоды_1 {
                                     Console.WriteLine("Температура не опускалась ниже 0 ни разу за месяц.");
                                 else
                                     Console.WriteLine("Температура опускалась ниже 0 хотя бы один раз за месяц.");
+                            }
+                            Console.WriteLine();
+                            break;
+                        case 14:
+                            Console.Write("Создать новый массив (каждое значение задается вручную) и сравнить с первым массивом - введите 1, сравнить два уже созданных - введите 2: ");
+                            byte.TryParse(Console.ReadLine(), out ok1);
+                            if (ok1 == 1) {
+                                int day, month;                                
+                                Console.Write("Введите номер месяца: ");
+                                int.TryParse(Console.ReadLine(), out month);
+                                Console.Write("Введите день недели: ");
+                                int.TryParse(Console.ReadLine(), out day);
+                                MatrixWeather temperature3 = new MatrixWeather(month, day, ok1);
+                                if (temperature1 & temperature3)
+                                    Console.WriteLine("Все температуры первого и третьего массива совпали!");
+                                else
+                                    Console.WriteLine("Элементы не совпали.");
+                            }
+                            else if (ok1 == 2) {
+                                if (temperature1 & temperature2)
+                                    Console.WriteLine("Все температуры первого и второго массива совпали!");
+                                else
+                                    Console.WriteLine("Элементы не совпали.");
                             }
                             Console.WriteLine();
                             break;
