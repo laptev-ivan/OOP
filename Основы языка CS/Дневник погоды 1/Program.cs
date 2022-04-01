@@ -140,7 +140,7 @@ namespace Дневник_погоды_1 {
         public static bool operator false(MatrixWeather obj) {
             bool ok = false;
             foreach (int temp in obj.temperature)
-                if (temp < 0 &&temp!=NoData) {
+                if (temp < 0 &&temp != NoData) {
                     ok = true;
                     break;
                 }
@@ -148,9 +148,17 @@ namespace Дневник_погоды_1 {
         }
 
         public static bool operator &(MatrixWeather obj1, MatrixWeather obj2) {
-            if (obj1.Temperature == obj2.Temperature)
+            if (obj1.DaysInMatrix == obj2.DaysInMatrix) {
+                for (int i = 0; i < obj1.Temperature.GetLength(0); ++i) {
+                    for (int j = 0; j < obj1.Temperature.GetLength(1); ++j) {
+                        if (obj1.Temperature[i, j] != obj2.Temperature[i, j])
+                            return false;
+                    }
+                }
                 return true;
+            }
             return false;
+            
         }
 
         private static int Generator(int month) {
@@ -253,7 +261,7 @@ namespace Дневник_погоды_1 {
                 }
         }
 
-        private void ShiftRight(int value ) {
+        private void ShiftRight(int value) {
             int k = value - (int)day;
             int[] tmp = new int[temperature.GetLength(0) * temperature.GetLength(1)];
             int count = 0;
