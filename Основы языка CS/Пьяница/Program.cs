@@ -17,15 +17,6 @@ namespace Пьяница {
         Seniority[] deck;
         static Random rnd = new Random();
 
-        public Seniority this[int index] {
-            get {
-                if (index < 0 || index > 36)
-                    throw new Exception(@"введен неверный индекс.");
-                else
-                    return deck[index];
-            }
-        }
-
         public Cards() {
             deck = new Seniority[36];
             for (int i = 0, k = 0, j = 0; i < deck.Length && j <= 8; ++i, ++k) {
@@ -69,8 +60,6 @@ namespace Пьяница {
 
         public Seniority this[int index] {
             get {
-                //if (index >= deck.Length)
-                //    throw new Exception(@"error");
                 return deck[index];
             }
         }
@@ -82,7 +71,8 @@ namespace Пьяница {
         public void AddCard(Player player) {
             Seniority elem = player.Pop();
             Seniority[] arr = new Seniority[deck.Length + 1];
-            Array.Copy(deck, 0, arr, 0, deck.Length);
+            Array.Copy(deck, 1, arr, 0, deck.Length - 1);
+            arr[deck.Length - 1] = deck[0];
             arr[deck.Length] = elem;
             deck = arr;
         }
@@ -115,60 +105,55 @@ namespace Пьяница {
             Seniority[] deck2 = deck.SecondDeck();
             Player player1 = new Player(deck1);
             Player player2 = new Player(deck2);
-            int index = 0;
-            try {
-                while (player1.Length != 36 || player2.Length != 36 || index <= player1.Length || index <= player2.Length) {
-                    Console.WriteLine($"Карта достоинства: {player1[index]}");
-                    Console.WriteLine($"Карта достоинства: {player2[index]}");
-                    if (player1[index] > player2[index]) {
-                        Console.WriteLine($"Первый игрок выиграл тур, получил: {player1[index]} {player2[index]}");
-                        player1.AddCard(player2);
-                        Console.WriteLine($"Добавляем {player1[index]} и {player2[index]}");
-                    }
-                    else if (player1[index] < player2[index]) {
-                        Console.WriteLine($"Второй игрок выиграл тур, получил: {player1[index]} {player2[index]}");
-                        player2.AddCard(player1);
-                        Console.WriteLine($"Добавляем {player1[index]} и {player2[index]}");
-                    }
-                    else {
-                        Console.WriteLine("ВОЙНА");
-                    link:
-                        index += 2;
-                        Console.WriteLine($"Карта достоинства: {player1[index - 1]}");
-                        Console.WriteLine($"Карта достоинства: {player2[index - 1]}");
-                        Console.WriteLine($"Карта достоинства: {player1[index]}");
-                        Console.WriteLine($"Карта достоинства: {player2[index ]}");
-                        Console.WriteLine($"Первый игрок выложил: одну рубашкой вниз и {player1[index]}, а второй игрок: тоже закрытую и {player2[index]}");
-                        if (player1[index] > player2[index]) {
-                            Console.WriteLine("Первый игрок выиграл войну");
-                            Console.WriteLine($"Добавляем {player1[index - 1]} и {player2[index - 1]}");
-                            Console.WriteLine($"Добавляем {player1[index]} и {player2[index]}");
-                            player1.AddCard(player2);
-                            player1.AddCard(player2);
-                        }
-                        else if (player1[index] < player2[index]) {
-                            Console.WriteLine("Второй игрок выиграл войну");
-                            Console.WriteLine($"Добавляем {player1[index - 1]} и {player2[index - 1]}");
-                            Console.WriteLine($"Добавляем {player1[index]} и {player2[index]}");
-                            player2.AddCard(player1);
-                            player2.AddCard(player1);
-                        }
-                        else {
-                            goto link;
-                        }
-                    }
-                    Console.WriteLine("СЛЕДУЮЩИЙ ТУР");
-                    ++index;
+            int index = 0, cnt = 0;
+            while (index < 35 && player1.Length > 0 && player2.Length > 0) {
+                index = 0;
+                Console.WriteLine($"Карта достоинства: {player1[index]}");
+                Console.WriteLine($"Карта достоинства: {player2[index]}");
+                if (player1[index] > player2[index]) {
+                    Console.WriteLine($"Первый игрок выиграл тур, получил: {player1[index]} {player2[index]}");
+                    Console.WriteLine($"Добавляем {player1[index]} и {player2[index]}");
+                    player1.AddCard(player2);
                 }
+                else if (player1[index] < player2[index]) {
+                    Console.WriteLine($"Второй игрок выиграл тур, получил: {player1[index]} {player2[index]}");
+                    Console.WriteLine($"Добавляем {player1[index]} и {player2[index]}");
+                    player2.AddCard(player1);
+                }
+                else {
+                    int ind = index + 1;
+                    while (player1[ind] == player2[ind]) 
+                        ++ind;
+                    Console.WriteLine("ВОЙНА");
+                    Console.WriteLine($"Карта достоинства: {player1[ind]}");
+                    Console.WriteLine($"Карта достоинства: {player2[ind]}");
+                    Console.WriteLine($"Карта достоинства: {player1[ind + 1]}");
+                    Console.WriteLine($"Карта достоинства: {player2[ind + 1]}");
+                    Console.WriteLine($"Первый игрок выложил: одну рубашкой вниз и {player1[ind]}, а второй игрок: тоже закрытую и {player2[ind]}");
+                    if (player1[ind] > player2[ind]) {
+                        Console.WriteLine("Первый игрок выиграл войну");
+                        for (int i = index; i <= ind; ++i) {
+                            Console.WriteLine($"Добавляем {player1[i]} и {player2[0]}");
+                            player1.AddCard(player2);
+                        }
+                    }
+                    else if (player1[ind] < player2[ind]) {
+                        Console.WriteLine("Второй игрок выиграл войну");
+                        for (int i = index; i <= ind; ++i) {
+                            Console.WriteLine($"Добавляем {player1[0]} и {player2[i]}");
+                            player2.AddCard(player1);
+                        }
+                    }
+                }
+                ++cnt;
+                Console.WriteLine("СЛЕДУЮЩИЙ ТУР");
             }
-            catch (IndexOutOfRangeException) {
-                Console.WriteLine("Карты закончились!");
-                if (player1.Length > player2.Length)
-                    Console.WriteLine("ВЫИГРАЛ ПЕРВЫЙ игрок!");
-                else if (player1.Length < player2.Length)
-                    Console.WriteLine("ВЫИГРАЛ ВТОРОЙ игрок!");
-                Console.WriteLine($"Игра закончена за {index} хода(ов)");
-            }
+            Console.WriteLine("Карты закончились!");
+            if (player1.Length > player2.Length)
+                Console.WriteLine("ВЫИГРАЛ ПЕРВЫЙ игрок!");
+            else if (player1.Length < player2.Length)
+                Console.WriteLine("ВЫИГРАЛ ВТОРОЙ игрок!");
+            Console.WriteLine($"Игра закончена за {cnt + 1} хода(ов)");
             Console.ReadKey();
         }
     }
