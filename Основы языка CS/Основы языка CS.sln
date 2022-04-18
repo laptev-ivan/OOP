@@ -36,7 +36,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notes", "Notes\Notes.csproj", "{50D7843A-66D4-4842-87CC-BC8F21C4B7B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Пьяница", "Пьяница\Пьяница.csproj", "{B10E7EAA-2915-400C-BBFF-00270E27C481}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Пьяница", "Пьяница\Пьяница.csproj", "{B10E7EAA-2915-400C-BBFF-00270E27C481}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Наследование", "Наследование\Наследование.csproj", "{8F16A98F-9715-4DDB-9A04-80FCC48C0DEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -104,6 +106,10 @@ Global
 		{B10E7EAA-2915-400C-BBFF-00270E27C481}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B10E7EAA-2915-400C-BBFF-00270E27C481}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B10E7EAA-2915-400C-BBFF-00270E27C481}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F16A98F-9715-4DDB-9A04-80FCC48C0DEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F16A98F-9715-4DDB-9A04-80FCC48C0DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F16A98F-9715-4DDB-9A04-80FCC48C0DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F16A98F-9715-4DDB-9A04-80FCC48C0DEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
