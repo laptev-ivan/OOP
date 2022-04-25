@@ -28,18 +28,15 @@ namespace Наследование
         }
 
         public string GetName {
-            get {
-                return name;
-            }
+            get { return name; }
         }
 
         public int GetDistance {
-            get {
-                return volume / capacity;
-            }
+            get { return volume / capacity; }
         }
 
-        public double Essential(int distance) {
+        public virtual double Essential(int distance) {
+            if (distance < 0) throw new Exception(@"дистанция не может быть меньше 0.");
             return distance * capacity / 100f;
         }
 
@@ -68,9 +65,7 @@ namespace Наследование
         }
 
         public int Pas {
-            get {
-                return passangers;
-            }
+            get { return passangers; }
             set {
                 if (value > 5) {
                     passangers = 5;
@@ -83,8 +78,6 @@ namespace Наследование
                 passangers = value;
             }
         }
-
-       
 
         public int Percent {
             get {
@@ -108,10 +101,6 @@ namespace Наследование
         }
 
         public HeavyCar(int heaviness, int gruz200) : base() {
-            if (heaviness < gruz200) {
-                this.gruz200 = 40;
-                throw new Exception(@"реальный груз больше возможного (значение - 40).");
-            }
             this.heaviness = heaviness;
             this.gruz200 = gruz200;
         }
@@ -121,14 +110,12 @@ namespace Наследование
             this.gruz200 = gruz200;
         }
 
-        new public double Essential(int distance) {
+        public override double Essential(int distance) {
             return base.Essential(distance) + gruz200 / 10f;
         }
 
         public int Gruz {
-            get {
-                return gruz200;
-            }
+            get { return gruz200; }
             set {
                 if (heaviness < value) {
                     gruz200 = 40;
@@ -138,11 +125,11 @@ namespace Наследование
             }
         }
 
-        new public int Percent() {
+        public new int Percent() {
             return 100 * gruz200 / 5;
         }
 
-        new public void Show() {
+         public new void Show() {
             base.Show();
             Console.WriteLine($"Грузоподъемность: {heaviness}\nМасса груза: {gruz200}");
         }
@@ -176,22 +163,17 @@ namespace Наследование
         }
 
         new public int Capacity(int time) {
-            if (time > 20 && time < 24) {
+            if (time > 20 && time < 24) 
                 return 100;
-            }
             return 50;
         }
 
         public int Percent {
-            get {
-                return passengers * 100 / 60;
-            }
+            get { return passengers * 100 / 60; }
         }
 
         public int Earn {
-            get {
-                return passengers * price;
-            }
+            get { return passengers * price; }
         }
 
         new public void Show() {
@@ -252,6 +234,7 @@ namespace Наследование
             }
             catch (Exception error) {
                 Console.WriteLine($"Ошибка: {error.Message}");
+                return;
             }
             Console.ReadKey();
         }
