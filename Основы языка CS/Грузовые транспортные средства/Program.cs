@@ -1,7 +1,6 @@
 ﻿using System;
 
 namespace Грузовые_транспортные_средства {
-
     enum Type {
         Полный_привод,
         Задний_привод,
@@ -15,7 +14,7 @@ namespace Грузовые_транспортные_средства {
         protected int capacity; //грузоподъемность
         protected int cargoWeight; //массаГруза
 
-        public GruzovoeTransportnoeSredstvo() {
+        protected GruzovoeTransportnoeSredstvo() {
             name = "ВАЗ";
             weight = 7653;
             pwrReserve = 26;
@@ -23,7 +22,7 @@ namespace Грузовые_транспортные_средства {
             cargoWeight = 237;
         }
 
-        public GruzovoeTransportnoeSredstvo(string name, int weight, int pwrReserve, int capacity, int cargoWeight) {
+        protected GruzovoeTransportnoeSredstvo(string name, int weight, int pwrReserve, int capacity, int cargoWeight) {
             this.name = name;
             this.weight = weight;
             this.pwrReserve = pwrReserve;
@@ -31,25 +30,20 @@ namespace Грузовые_транспортные_средства {
             this.cargoWeight = cargoWeight;
         }
 
-        public string Name {
-            get {
-                return name;
-            }
+        protected string Name {
+            get { return name; }
         }
 
         public virtual int Weight {
-            get {
-                return weight;
-            }
+            get { return weight + CargoWeight; }
         }
 
         public virtual int CargoWeight {
-            get {
-                return cargoWeight;
-            }
+            get { return cargoWeight; }
 
             set {
-                if (weight < 0) throw new Exception(@"масса груза не может быть меньше нуля.");
+                if (value < 0 || value > capacity) 
+                    throw new Exception(@"масса груза не может быть меньше нуля.");
                 cargoWeight = value;
             }
         }
@@ -60,10 +54,11 @@ namespace Грузовые_транспортные_средства {
 
         public virtual void OpisanieTS() {
             Console.WriteLine($"Название: {Name}");
-            Console.WriteLine($"МассаТС: {Weight} кг");
+            Console.WriteLine($"МассаТС: {weight} кг");
             Console.WriteLine($"ЗапасХода: {pwrReserve} литров на 100 км");
             Console.WriteLine($"Грузоподъемность: {capacity} кг");
             Console.WriteLine($"МассаГруза: {cargoWeight} кг");
+            Console.WriteLine($"ПолнаяМассаТС: {Weight} кг");
         }
     }
 
@@ -71,12 +66,12 @@ namespace Грузовые_транспортные_средства {
         protected int numWheels;
         protected Type typeDriveUnit;
 
-        public KolesnoeTS() : base() {
+        protected KolesnoeTS() : base() {
             numWheels = 4;
             typeDriveUnit = Type.Полный_привод;
         }
 
-        public KolesnoeTS(string name, int weight, int pwrReserve, int capacity, int cargoWeight, int numWheels, Type typeDriveUnit) : base(name, weight, pwrReserve, capacity, cargoWeight) {
+        protected KolesnoeTS(string name, int weight, int pwrReserve, int capacity, int cargoWeight, int numWheels, Type typeDriveUnit) : base(name, weight, pwrReserve, capacity, cargoWeight) {
             this.numWheels = numWheels;
             this.typeDriveUnit = typeDriveUnit;
         }
@@ -87,7 +82,7 @@ namespace Грузовые_транспортные_средства {
     }
 
     class GruzovoiAutomobile : KolesnoeTS {
-        protected int numVoditeley;
+        int numVoditeley;
 
         public GruzovoiAutomobile() : base() {
             numVoditeley = 5;
@@ -98,12 +93,10 @@ namespace Грузовые_транспортные_средства {
         }
 
         public override int CargoWeight {
-            get {
-                return base.CargoWeight + numVoditeley * 80;
-            }
+            get { return base.CargoWeight + numVoditeley * 80; }
 
             set {
-                if (value < 0)
+                if (value < 0 || value > capacity)
                     throw new Exception(@"масса груза не может быть меньше нуля.");
                 base.CargoWeight = value + numVoditeley * 80;
             }
@@ -117,9 +110,7 @@ namespace Грузовые_транспортные_средства {
         }
 
         public override int Weight {
-            get {
-                return base.Weight + CargoWeight;
-            }
+            get { return base.Weight + CargoWeight; }
         }
     }
 
@@ -135,19 +126,13 @@ namespace Грузовые_транспортные_средства {
         }
 
         public override int CargoWeight {
-            get {
-                return base.CargoWeight;
-            }
+            get { return base.CargoWeight; }
 
-            set {
-                base.CargoWeight = value;
-            }
+            set { base.CargoWeight = value; }
         }
 
         public override int Weight {
-            get {
-                return weight * numCars;
-            }
+            get { return weight * numCars + CargoWeight; }
         }
 
         public override void ZapasHodaSDannoiNagruzkoi() {
@@ -174,9 +159,7 @@ namespace Грузовые_транспортные_средства {
         }
 
         public override int Weight {
-            get {
-                return base.Weight;
-            }
+            get { return base.Weight; }
         }
 
         public override void ZapasHodaSDannoiNagruzkoi() {
@@ -202,9 +185,7 @@ namespace Грузовые_транспортные_средства {
         }
 
         public override int Weight {
-            get {
-                return base.Weight + numBuck * 10;
-            }
+            get { return base.Weight + numBuck * 10; }
         }
 
         public override void OpisanieTS() {
@@ -220,23 +201,37 @@ namespace Грузовые_транспортные_средства {
     class Program {
         static void Main(string[] args) {
             try {
-                GruzovoeTransportnoeSredstvo[] array = new GruzovoeTransportnoeSredstvo[6] {
-                    new GruzovoeTransportnoeSredstvo(),
-                    new KolesnoeTS("Мотоцикл", 193, 20, 30, 50, 2, Type.Задний_привод),
-                    new GruzovoiAutomobile("Белаз", 15032, 55, 45, 300, 4, Type.Полный_привод, 3),
-                    new GruzovoiPoezd("Стрела", 22313, 70, 30, 5000, 24, Type.Передний_привод, 3),
-                    new Pickup("Волга", 3754, 43, 30, 157, 4, Type.Передний_привод, 3, true),
-                    new Bolshegruz("Большегруз 40", 5234, 47, 30, 535, 6, Type.Передний_привод, 3, 5)
+                GruzovoeTransportnoeSredstvo[] array = new GruzovoeTransportnoeSredstvo[8] {
+                    new GruzovoiAutomobile(),
+                    new GruzovoiAutomobile("Белаз", 15032, 55, 1450, 300, 4, Type.Полный_привод, 3),
+                    new GruzovoiPoezd(),
+                    new GruzovoiPoezd("Стрела", 500, 70, 10540, 5000, 24, Type.Передний_привод, 5),
+                    new Pickup(),
+                    new Pickup("Волга", 3754, 43, 30, 157, 4, Type.Передний_привод, 4, true),
+                    new Bolshegruz(),
+                    new Bolshegruz("Большегруз 40", 5234, 47, 30, 535, 6, Type.Задний_привод, 2, 5)
                 };
-                Console.WriteLine("Все транспортные средства в массиве: ");
+                Console.WriteLine("Все транспортные средства в массиве:\n");
                 int i = 0;
                 foreach(GruzovoeTransportnoeSredstvo elem in array) {
-                    Console.WriteLine(i);
+                    if (i % 2 == 0)
+                        Console.WriteLine("Класс по умолчанию.");
+                    else
+                        Console.WriteLine("Класс с параметрами.");
                     elem.OpisanieTS();
                     elem.ZapasHodaSDannoiNagruzkoi();
-                    Console.WriteLine();
+                    Console.WriteLine("\n");
                     ++i;
                 }
+                Console.Write("Введите вес груза в кг (ГрузовойПоезд): ");
+                int cargo;
+                int.TryParse(Console.ReadLine(), out cargo);
+                array[3].CargoWeight = cargo;
+                array[3].OpisanieTS();
+                Console.Write("Введите вес груза в кг (ГрузовойАвтомобиль): ");
+                int.TryParse(Console.ReadLine(), out cargo);
+                array[1].CargoWeight = cargo;
+                array[1].OpisanieTS();
             }
             catch (Exception error) {
                 Console.WriteLine($"Ошибка: {error.Message}");
