@@ -84,6 +84,7 @@ namespace Приветствие1
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ПРИВЕТ";
             this.ResumeLayout(false);
             this.PerformLayout();

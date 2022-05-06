@@ -44,6 +44,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Грузовые транс
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Приветствие1", "Приветствие1\Приветствие1.csproj", "{2E82B927-355C-4E1D-82F1-FB8B54A3C0A4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Визуальное программирование1", "Визуальное программирование1\Визуальное программирование1.csproj", "{042D409C-CCCE-40C1-B78F-77C1A63A9699}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Простые формы", "Простые формы\Простые формы.csproj", "{6BBEDC77-F025-4F40-B524-C91BFD7CE9A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -122,6 +126,14 @@ Global
 		{2E82B927-355C-4E1D-82F1-FB8B54A3C0A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E82B927-355C-4E1D-82F1-FB8B54A3C0A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E82B927-355C-4E1D-82F1-FB8B54A3C0A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{042D409C-CCCE-40C1-B78F-77C1A63A9699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{042D409C-CCCE-40C1-B78F-77C1A63A9699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{042D409C-CCCE-40C1-B78F-77C1A63A9699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{042D409C-CCCE-40C1-B78F-77C1A63A9699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BBEDC77-F025-4F40-B524-C91BFD7CE9A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BBEDC77-F025-4F40-B524-C91BFD7CE9A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BBEDC77-F025-4F40-B524-C91BFD7CE9A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BBEDC77-F025-4F40-B524-C91BFD7CE9A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

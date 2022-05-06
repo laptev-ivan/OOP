@@ -37,18 +37,8 @@ namespace Грузовые_транспортные_средства {
         public abstract int Weight { get; }
 
         public abstract int CargoWeight { get; set; }
-        //get {
-        //    return cargoWeight;
-        //}
-
-        //set {
-        //    if (value < 0 || value > capacity)
-        //        throw new Exception(@"масса груза не может быть меньше нуля.");
-        //    cargoWeight = value;
-        //}
 
         public abstract void ZapasHodaSDannoiNagruzkoi();
-        //Console.WriteLine($"Запас хода: {(double)Weight / pwrReserve * 10:f2} км");
 
         public virtual void OpisanieTS() {
             Console.WriteLine($"Название: {Name}");
