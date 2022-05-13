@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Визуальное про
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Простые формы", "Простые формы\Простые формы.csproj", "{6BBEDC77-F025-4F40-B524-C91BFD7CE9A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Работа с иерархией классов в форме", "Работа с иерархией классов в форме\Работа с иерархией классов в форме.csproj", "{884058CB-78DD-4B49-9677-163CF839BAE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -134,6 +136,10 @@ Global
 		{6BBEDC77-F025-4F40-B524-C91BFD7CE9A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BBEDC77-F025-4F40-B524-C91BFD7CE9A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BBEDC77-F025-4F40-B524-C91BFD7CE9A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{884058CB-78DD-4B49-9677-163CF839BAE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{884058CB-78DD-4B49-9677-163CF839BAE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{884058CB-78DD-4B49-9677-163CF839BAE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{884058CB-78DD-4B49-9677-163CF839BAE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
