@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="pics\HBnKiwi - hours later sound effect _ All Spongebob Time Sound Effects.mp3" />
+    <None Remove="pics\icon.ico" />
+    <None Remove="pics\Korn - Twist.mp3" />
+    <None Remove="pics\pic.png" />
+    <None Remove="pics\Spongebob - sad nigga sound effect .mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="pics\HBnKiwi - hours later sound effect _ All Spongebob Time Sound Effects.mp3" />
+    <Resource Include="pics\icon.ico" />
+    <Resource Include="pics\Korn - Twist.mp3" />
+    <Resource Include="pics\pic.png" />
+    <Resource Include="pics\Spongebob - sad nigga sound effect .mp3" />
+  </ItemGroup>
+
+</Project>

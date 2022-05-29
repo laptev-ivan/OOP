@@ -18,27 +18,32 @@ namespace Визуальное_программирование1
         }
 
         private void button1_Click(object sender, EventArgs e) {
-            if (int.TryParse(tb1.Text, out int res)) {
-                if (kosSash.Checked)
-                    tb2.Text = Convert.ToString(res * 2.48 + " м");
-                else if(maxSash.Checked)
-                    tb2.Text = Convert.ToString(res * 1.78 + " м");
-                else if (arshin.Checked)
-                    tb2.Text = Convert.ToString(res * 71.12 + " см");
-                else if (foot.Checked)
-                    tb2.Text = Convert.ToString(res * 30.48 + " см");
-                else if (step.Checked)
-                    tb2.Text = Convert.ToString(res * 71 + " см");
-                else if (lokot.Checked)
-                    tb2.Text = Convert.ToString(res * 45 + " см");
-                else if (hand.Checked)
-                    tb2.Text = Convert.ToString(res * 7.5 + " см");
-                else if (pad.Checked)
-                    tb2.Text = Convert.ToString(res * 17.78 + " см");
+            try {
+                if (double.TryParse(tb1.Text, out double res)) {
+                    if (kosSash.Checked)
+                        tb2.Text = Convert.ToString(res / 2.48 + " м");
+                    else if (maxSash.Checked)
+                        tb2.Text = Convert.ToString(res / 1.78 + " м");
+                    else if (arshin.Checked)
+                        tb2.Text = Convert.ToString(res / 71.12 + " см");
+                    else if (foot.Checked)
+                        tb2.Text = Convert.ToString(res / 30.48 + " см");
+                    else if (step.Checked)
+                        tb2.Text = Convert.ToString(res / 71 + " см");
+                    else if (lokot.Checked)
+                        tb2.Text = Convert.ToString(res / 45 + " см");
+                    else if (hand.Checked)
+                        tb2.Text = Convert.ToString(res / 7.5 + " см");
+                    else if (pad.Checked)
+                        tb2.Text = Convert.ToString(res / 17.78 + " см");
+                }
+                else {
+                    tb2.Text = "Неверное значение";
+                    throw new Exception("Error: ty mortis");
+                }
             }
-            else {
-
-                tb2.Text = "Неверное значение";
+            catch (Exception error) {
+                MessageBox.Show(error.Message);
             }
         }
     }
