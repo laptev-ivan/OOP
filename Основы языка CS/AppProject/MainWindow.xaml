@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AppProject"
         mc:Ignorable="d"
-        Title="Старинная русская система мер" Height="296" Width="565" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="pics/icon.ico">
+        Title="Старинная русская система мер" Height="320" Width="565" WindowStyle="ToolWindow" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/pics/icon.ico">
     <Grid>
         <TabControl x:Name="TabControl" SelectionChanged="TabControl_SelectionChanged">
             <TabItem x:Name="tabitem1" Header="Главное окошко">

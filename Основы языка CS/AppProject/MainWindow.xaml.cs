@@ -59,7 +59,7 @@ namespace AppProject
             }
             catch (Exception error) {
                 mp1.Pause();
-                mp3.Open(new Uri(@"C:\Users\chels\Desktop\CP\Основы языка CS\AppProject\pics\Spongebob - sad nigga sound effect .mp3", UriKind.Absolute));
+                mp3.Open(new Uri(@"C:\Users\chels\Desktop\CP\Основы языка CS\AppProject\pics\Spongebob - sad nigga sound effect .mp3", UriKind.RelativeOrAbsolute));
                 mp3.Play();
                 mp1.Play();
                 MessageBox.Show(error.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -69,12 +69,12 @@ namespace AppProject
         void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             if (tabitem2.IsSelected == true) {
                 mp1.Stop();
-                mp2.Open(new Uri(@"C:\Users\chels\Desktop\CP\Основы языка CS\AppProject\pics\Korn - Twist.mp3", UriKind.Absolute));
+                mp2.Open(new Uri(@"C:\Users\chels\Desktop\CP\Основы языка CS\AppProject\pics\Korn - Twist.mp3", UriKind.RelativeOrAbsolute));
                 mp2.Play();
             }
             if(tabitem1.IsSelected == true) {
                 mp2.Stop();
-                mp1.Open(new Uri(@"C:\Users\chels\Desktop\CP\Основы языка CS\AppProject\pics\HBnKiwi - hours later sound effect _ All Spongebob Time Sound Effects.mp3", UriKind.Absolute));
+                mp1.Open(new Uri(@"C:\Users\chels\Desktop\CP\Основы языка CS\AppProject\pics\HBnKiwi - hours later sound effect _ All Spongebob Time Sound Effects.mp3", UriKind.RelativeOrAbsolute));
                 mp1.Play();
             }
         }
