@@ -50,9 +50,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Простые формы",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Работа с иерархией классов в форме", "Работа с иерархией классов в форме\Работа с иерархией классов в форме.csproj", "{884058CB-78DD-4B49-9677-163CF839BAE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Calculator.csproj", "{80006DB8-FB6A-4044-AF1B-A6F98AA9CA60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Calculator", "Calculator\Calculator.csproj", "{80006DB8-FB6A-4044-AF1B-A6F98AA9CA60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppProject", "AppProject\AppProject.csproj", "{81994C50-275F-4F9C-B217-0FAEC6A65D07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppProject", "AppProject\AppProject.csproj", "{81994C50-275F-4F9C-B217-0FAEC6A65D07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Пистолет. Класс Gun", "Пистолет. Класс Gun\Пистолет. Класс Gun.csproj", "{0C44F1A9-466E-42F8-8293-69FFC4E8A004}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -152,6 +154,10 @@ Global
 		{81994C50-275F-4F9C-B217-0FAEC6A65D07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81994C50-275F-4F9C-B217-0FAEC6A65D07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81994C50-275F-4F9C-B217-0FAEC6A65D07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C44F1A9-466E-42F8-8293-69FFC4E8A004}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C44F1A9-466E-42F8-8293-69FFC4E8A004}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C44F1A9-466E-42F8-8293-69FFC4E8A004}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C44F1A9-466E-42F8-8293-69FFC4E8A004}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
